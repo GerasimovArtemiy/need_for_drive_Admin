@@ -4,6 +4,7 @@
     "private": true,
     "homepage": "https://gerasimovartemiy.github.io/need_for_drive_Admin/",
     "dependencies": {
+        "@reduxjs/toolkit": "^1.8.0",
         "@testing-library/jest-dom": "^5.16.3",
         "@testing-library/react": "^12.1.4",
         "@testing-library/user-event": "^13.5.0",
@@ -11,11 +12,19 @@
         "@types/node": "^16.11.26",
         "@types/react": "^17.0.43",
         "@types/react-dom": "^17.0.14",
+        "axios": "^0.26.1",
+        "classnames": "^2.3.1",
         "gh-pages": "^3.2.3",
+        "node-sass": "^7.0.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-redux": "^7.2.6",
+        "react-router-dom": "^6.2.2",
         "react-scripts": "5.0.0",
-        "web-vitals": "^2.1.4"
+        "react-select": "^5.2.2",
+        "react-yup": "^1.23.0",
+        "web-vitals": "^2.1.4",
+        "yup": "^0.32.11"
     },
     "scripts": {
         "start": "react-scripts start",

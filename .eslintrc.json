@@ -24,6 +24,8 @@
     },
     "plugins": ["react", "@typescript-eslint", "prettier"],
     "rules": {
+        "react/prop-types": "off",
+        "no-unused-vars": "off",
         "react/react-in-jsx-scope": "off",
         "require-jsdoc": "off",
         "@typescript-eslint/ban-ts-comment": "off",
