@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../../components/UI/Buttons/Button'
 import Input from '../../components/UI/Inputs/Input/Input'
 import cl from './Authorization.module.scss'
 import MainLogo from './MainLogo'
@@ -25,17 +26,17 @@ const Authorization: React.FC = () => {
                         <Input
                             name="password"
                             label="Пароль"
-                            type="text"
+                            type="password"
                             placeholder="Введите пароль"
                         />
                     </div>
                     <div className={cl.formButtons}>
-                        <button type="button" className={cl.registerButton}>
-                            Запросить доступ
-                        </button>
-                        <button type="submit" className={cl.enterButton}>
-                            Войти
-                        </button>
+                        <Button
+                            type="button"
+                            title="Запросить доступ"
+                            className={cl.registerButton}
+                        />
+                        <Button type="button" title="Войти" className={cl.enterButton} />
                     </div>
                 </form>
             </div>
