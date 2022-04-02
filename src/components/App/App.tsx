@@ -1,12 +1,10 @@
-// import Authorization from '../../pages/Authorization/Authorization'
 import cl from './App.module.scss'
-import AdminPage from '../../pages/AdminPage/AdminPage'
+import Router from '../../routes/Router'
 
 function App() {
     return (
         <div className={cl.App}>
-            {/* <Authorization /> */}
-            <AdminPage />
+            <Router />
         </div>
     )
 }

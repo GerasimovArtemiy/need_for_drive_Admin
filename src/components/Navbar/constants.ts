@@ -1,4 +1,5 @@
 import { pencil, list, order, person } from './NavbarIcons'
+import { routerPath } from '../../routes/routerPath'
 
 interface INavbarItems {
     id: number
@@ -10,21 +11,21 @@ interface INavbarItems {
 export const navbarItems: INavbarItems[] = [
     {
         id: 0,
+        title: 'Заказы',
+        path: routerPath.orderList,
+        img: order,
+    },
+    {
+        id: 1,
         title: 'Карточка авто',
         path: '/',
         img: pencil,
     },
     {
-        id: 1,
+        id: 2,
         title: 'Список авто',
         path: '/',
         img: list,
-    },
-    {
-        id: 2,
-        title: 'Заказы',
-        path: '/',
-        img: order,
     },
     {
         id: 3,
