@@ -1,0 +1,103 @@
+@import '../../styles/variables.scss';
+
+.header {
+    font-family: $light;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 68px;
+    padding: 0 26px 0;
+    background: #ffffff;
+    box-shadow: 0 2.5px 9.5px rgba(90, 97, 105, 0.12);
+    width: 100%;
+}
+.search {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    &_wrap {
+        display: flex;
+        flex-grow: 1;
+    }
+    &_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &_icon {
+        border: none;
+        background-color: transparent;
+        width: 15px;
+        height: 15px;
+        margin: 0 9px 3px 0;
+        cursor: pointer;
+    }
+    &_input {
+        width: 90%;
+        font-size: 16px;
+        line-height: 24px;
+        border: none;
+        outline: none;
+        padding: 5px;
+        color: $color-dark-blue;
+    }
+}
+.notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid $color-light-gray;
+    border-left: 1px solid $color-light-gray;
+    min-width: 67px;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+}
+.counter {
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    background: #c4183c;
+    color: white;
+    font-size: 9px;
+    line-height: 14px;
+    text-align: center;
+    position: absolute;
+    right: 17px;
+    bottom: 21px;
+}
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 14px 0 14px 26px;
+    min-width: 169px;
+    &_avatar {
+        border-radius: 50%;
+        margin-right: 14px;
+        width: 40px;
+        height: 40px;
+    }
+    &_name {
+        font-size: 15px;
+        line-height: 17px;
+        margin: 0;
+        color: #5a6169;
+    }
+}
+.adminPanel {
+    display: flex;
+    position: relative;
+    align-self: center;
+    margin-left: auto;
+    &_arrow {
+        outline: none;
+        border: none;
+        background: none;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

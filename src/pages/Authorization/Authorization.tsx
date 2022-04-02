@@ -9,14 +9,14 @@ const Authorization: React.FC = () => {
         <section className={cl.wrapper}>
             <div className={cl.container}>
                 <div className={cl.header}>
-                    <div className={cl.headerLogo}>
+                    <div className={cl.header_logo}>
                         <MainLogo />
                     </div>
-                    <h2 className={cl.headerTitle}>Need for drive</h2>
+                    <h2 className={cl.header_title}>Need for drive</h2>
                 </div>
                 <form className={cl.form}>
-                    <h3 className={cl.formHeader}>Вход</h3>
-                    <div className={cl.formInputs}>
+                    <h3 className={cl.form_header}>Вход</h3>
+                    <div className={cl.form_inputs}>
                         <Input
                             name="username"
                             label="Почта"
@@ -30,7 +30,7 @@ const Authorization: React.FC = () => {
                             placeholder="Введите пароль"
                         />
                     </div>
-                    <div className={cl.formButtons}>
+                    <div className={cl.form_buttons}>
                         <Button
                             type="button"
                             title="Запросить доступ"

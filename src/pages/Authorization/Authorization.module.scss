@@ -20,19 +20,19 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 16px;
-}
-.headerTitle {
-    margin: 0;
-    font-size: 24px;
-    color: $color-dark-blue;
-    line-height: 28px;
-    align-self: center;
-}
-.headerLogo {
-    margin-right: 11px;
-    height: 44.5px;
-    width: 44.5px;
-    align-self: center;
+    &_title {
+        margin: 0;
+        font-size: 24px;
+        color: $color-dark-blue;
+        line-height: 28px;
+        align-self: center;
+    }
+    &_logo {
+        margin-right: 11px;
+        height: 44.5px;
+        width: 44.5px;
+        align-self: center;
+    }
 }
 .form {
     display: flex;
@@ -44,25 +44,26 @@
     background: #ffffff;
     box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
         0px 5px 5px rgba(90, 97, 105, 0.06), 0px 3.5px 35px rgba(90, 97, 105, 0.1);
+    &_header {
+        font-size: 17.5px;
+        line-height: 20px;
+        align-self: center;
+        text-align: center;
+        margin: 0 auto 35px;
+        color: $color-dark-blue;
+    }
+    &_inputs {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    &_buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
-.formHeader {
-    font-size: 17.5px;
-    line-height: 20px;
-    align-self: center;
-    text-align: center;
-    margin: 0 auto 35px;
-    color: $color-dark-blue;
-}
-.formInputs {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-.formButtons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+
 .enterButton {
     border: none;
     border-radius: 4px;
