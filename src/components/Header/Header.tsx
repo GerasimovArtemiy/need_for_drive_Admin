@@ -5,7 +5,7 @@ import avatar from '../../assets/img/pepe.png'
 
 const Header: React.FC = () => {
     return (
-        <div className={cl.header}>
+        <header className={cl.header}>
             <div className={cl.search_wrap}>
                 <div className={cl.search_container}>
                     <div className={cl.search}>
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
                     <button className={cl.adminPanel_arrow}>{ArrowIcon}</button>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }
 
