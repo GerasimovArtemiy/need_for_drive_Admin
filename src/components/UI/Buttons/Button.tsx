@@ -7,11 +7,11 @@ interface IButtonProps {
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
-    const { type, title, className } = props
+    const { type, title, className, children } = props
 
     return (
         <button type={type} className={className}>
-            {title}
+            {children} <span>{title}</span>
         </button>
     )
 }

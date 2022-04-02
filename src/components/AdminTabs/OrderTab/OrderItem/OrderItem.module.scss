@@ -1,0 +1,56 @@
+@import '../../../../styles/variables.scss';
+
+.order {
+    box-sizing: border-box;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin: 15px auto;
+    padding: 0 22px;
+    width: 100%;
+    min-height: fit-content;
+    border-radius: 6px;
+    &_info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+.main_info {
+    display: flex;
+}
+.descr {
+    margin: 0;
+    max-width: 260px;
+    font-size: 13px;
+    line-height: 15px;
+    color: #889098;
+    &_item {
+        margin-bottom: 6px;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    &_strong {
+        color: $color-black;
+    }
+}
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    &_container {
+        width: 140px;
+        height: 63px;
+        overflow: hidden;
+        padding: 5px;
+        box-sizing: border-box;
+        margin-right: 16px;
+    }
+}
+.price {
+    font-size: 24px;
+    line-height: 28px;
+    color: $color-black;
+}
