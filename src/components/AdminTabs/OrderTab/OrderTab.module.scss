@@ -86,3 +86,17 @@
         background: #c4183c;
     }
 }
+.pagination {
+    border-top: 1px solid $color-light-gray;
+    padding: 20px;
+    color: $color-blue;
+    text-align: center;
+    & span {
+        display: inline-block;
+        border: 1px solid $color-blue;
+        border-radius: 50%;
+        width: 18px;
+        color: white;
+        background: $color-blue;
+    }
+}

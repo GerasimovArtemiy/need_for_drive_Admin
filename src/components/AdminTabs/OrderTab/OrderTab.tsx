@@ -26,9 +26,9 @@ const OrderTab: React.FC = () => {
                 <OrderItem />
                 <OrderItem />
                 <OrderItem />
-                <OrderItem />
-                <OrderItem />
-                <OrderItem />
+                <div className={cl.pagination}>
+                    « 1 ... 4 <span>5</span> 6 ... 31 »
+                </div>
             </div>
         </section>
     )
