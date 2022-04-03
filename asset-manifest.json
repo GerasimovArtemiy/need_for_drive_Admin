@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/need_for_drive_Admin/static/css/main.b2cb6601.css",
-    "main.js": "/need_for_drive_Admin/static/js/main.a738cf63.js",
+    "main.css": "/need_for_drive_Admin/static/css/main.30ce0163.css",
+    "main.js": "/need_for_drive_Admin/static/js/main.7779e2b6.js",
     "static/media/helvetica_regular.svg": "/need_for_drive_Admin/static/media/helvetica_regular.0510c66d5546e5e36fa9.svg",
     "static/media/helvetica_bold.svg": "/need_for_drive_Admin/static/media/helvetica_bold.f6099ed6fdd8d4613f42.svg",
     "static/media/helvetica_regular.eot": "/need_for_drive_Admin/static/media/helvetica_regular.41c63ce83e3cd0799024.eot",
@@ -12,12 +12,15 @@
     "static/media/helvetica_regular.woff": "/need_for_drive_Admin/static/media/helvetica_regular.be4c3c2761aa47d66dd9.woff",
     "static/media/helvetica_bold.woff2": "/need_for_drive_Admin/static/media/helvetica_bold.d821f6f0320e1ff19d16.woff2",
     "static/media/helvetica_regular.woff2": "/need_for_drive_Admin/static/media/helvetica_regular.724e0b5b615aa53892cf.woff2",
+    "static/media/car-img.jpg": "/need_for_drive_Admin/static/media/car-img.2a4b5c9cedc1f83ec8cd.jpg",
+    "static/media/pepe.png": "/need_for_drive_Admin/static/media/pepe.7e397d23e583f74cd5b5.png",
     "index.html": "/need_for_drive_Admin/index.html",
-    "main.b2cb6601.css.map": "/need_for_drive_Admin/static/css/main.b2cb6601.css.map",
-    "main.a738cf63.js.map": "/need_for_drive_Admin/static/js/main.a738cf63.js.map"
+    "static/media/checkbox-icon.svg": "/need_for_drive_Admin/static/media/checkbox-icon.599a4157a9af0498854e.svg",
+    "main.30ce0163.css.map": "/need_for_drive_Admin/static/css/main.30ce0163.css.map",
+    "main.7779e2b6.js.map": "/need_for_drive_Admin/static/js/main.7779e2b6.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2cb6601.css",
-    "static/js/main.a738cf63.js"
+    "static/css/main.30ce0163.css",
+    "static/js/main.7779e2b6.js"
   ]
 }
