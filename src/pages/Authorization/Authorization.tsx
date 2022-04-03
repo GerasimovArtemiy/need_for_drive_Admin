@@ -1,6 +1,8 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import Button from '../../components/UI/Buttons/Button'
 import Input from '../../components/UI/Inputs/Input/Input'
+import { routerPath } from '../../routes/routerPath'
 import cl from './Authorization.module.scss'
 import MainLogo from './MainLogo'
 
@@ -36,7 +38,9 @@ const Authorization: React.FC = () => {
                             title="Запросить доступ"
                             className={cl.registerButton}
                         />
-                        <Button type="button" title="Войти" className={cl.enterButton} />
+                        <NavLink to={routerPath.adminPanel}>
+                            <Button type="button" title="Войти" className={cl.enterButton} />
+                        </NavLink>
                     </div>
                 </form>
             </div>

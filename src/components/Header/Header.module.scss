@@ -6,11 +6,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 68px;
     padding: 0 26px 0;
     background: #ffffff;
     box-shadow: 0 2.5px 9.5px rgba(90, 97, 105, 0.12);
     width: 100%;
+
+    @media screen and (max-width: 1023px) {
+        height: 50px;
+    }
+    @media screen and (max-width: 450px) {
+        padding: 0 0 0 10px;
+    }
 }
 .search {
     height: 100%;
@@ -50,7 +56,7 @@
     border-right: 1px solid $color-light-gray;
     border-left: 1px solid $color-light-gray;
     min-width: 67px;
-    height: 100%;
+    height: 68px;
     position: relative;
     cursor: pointer;
 }
@@ -72,6 +78,11 @@
     align-items: center;
     padding: 14px 0 14px 26px;
     min-width: 169px;
+
+    @media screen and (max-width: 766px) {
+        min-width: auto;
+        padding: 14px 0 14px 16px;
+    }
     &_avatar {
         border-radius: 50%;
         margin-right: 14px;
@@ -83,6 +94,10 @@
         line-height: 17px;
         margin: 0;
         color: #5a6169;
+
+        @media screen and (max-width: 450px) {
+            display: none;
+        }
     }
 }
 .adminPanel {
@@ -99,5 +114,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @media screen and (max-width: 400px) {
+            display: none;
+        }
     }
 }

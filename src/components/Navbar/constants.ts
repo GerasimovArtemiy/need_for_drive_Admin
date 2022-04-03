@@ -18,25 +18,25 @@ export const navbarItems: INavbarItems[] = [
     {
         id: 1,
         title: 'Карточка авто',
-        path: '/',
+        path: routerPath.adminPanel,
         img: pencil,
     },
     {
         id: 2,
         title: 'Список авто',
-        path: '/',
+        path: routerPath.adminPanel,
         img: list,
     },
     {
         id: 3,
         title: 'Список городов',
-        path: '/',
+        path: routerPath.adminPanel,
         img: list,
     },
     {
         id: 4,
         title: 'Тарифы',
-        path: '/',
+        path: routerPath.adminPanel,
         img: person,
     },
 ]

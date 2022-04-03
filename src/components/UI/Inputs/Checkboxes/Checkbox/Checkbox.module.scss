@@ -4,6 +4,11 @@
     -webkit-apperance: none;
     appearance: none;
     position: absolute;
+    &_group {
+        @media screen and (max-width: 670px) {
+            margin-bottom: 12px;
+        }
+    }
     &_container {
         margin-right: 16px;
         font-family: $light;
