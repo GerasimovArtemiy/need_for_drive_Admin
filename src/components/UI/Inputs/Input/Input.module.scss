@@ -1,0 +1,27 @@
+@import '../../../../styles/variables.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 15px;
+    &:last-of-type {
+        margin: 0;
+    }
+}
+.label {
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    margin-bottom: 8.5px;
+    color: $color-dark-blue;
+}
+.input {
+    font-size: 11px;
+    line-height: 13px;
+    border: 0.5px solid #becad6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 8px 11px 8.5px;
+    outline-style: none;
+    color: $color-dark-blue;
+}

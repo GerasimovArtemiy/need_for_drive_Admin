@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+
+.footer {
+    display: flex;
+    &_container {
+        width: 100%;
+        padding: 26px;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: 0px -0.5px 0px #d7dae3;
+
+        @media screen and (max-width: 470px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    &_links {
+        display: flex;
+        justify-content: space-between;
+        width: 200px;
+
+        @media screen and (max-width: 470px) {
+            margin-bottom: 12px;
+        }
+    }
+    &_link {
+        font-size: 14px;
+        line-height: 16px;
+        color: $color-blue;
+        text-decoration: none;
+    }
+    &_copyright {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0;
+        align-self: center;
+        color: #818ea3;
+    }
+}
