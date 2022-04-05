@@ -23,6 +23,15 @@
         flex-direction: column;
         margin-bottom: 15px;
     }
+    &_error {
+        color: red;
+        & p {
+            position: relative;
+            bottom: 13px;
+            margin: 0;
+            font-size: 12px;
+        }
+    }
     &_buttons {
         display: flex;
         flex-direction: row;
