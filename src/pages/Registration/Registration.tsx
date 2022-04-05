@@ -1,16 +1,16 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Button from '../../components/UI/Buttons/Button'
-import Input from '../../components/UI/Inputs/Input/Input'
 import { routerPath } from '../../routes/routerPath'
 import AuthAndRegBlock from '../../components/AuthAndRegBlock/AuthAndRegBlock'
-import cl from './Authorization.module.scss'
+import cl from './Registration.module.scss'
+import Input from '../../components/UI/Inputs/Input/Input'
+import Button from '../../components/UI/Buttons/Button'
 
-const Authorization: React.FC = () => {
+const Registration: React.FC = () => {
     return (
         <AuthAndRegBlock>
             <form className={cl.form}>
-                <h3 className={cl.form_header}>Вход</h3>
+                <h3 className={cl.form_header}>Регистрация</h3>
                 <div className={cl.form_inputs}>
                     <Input name="username" label="Почта" type="text" placeholder="Введите почту" />
                     <Input
@@ -19,21 +19,28 @@ const Authorization: React.FC = () => {
                         type="password"
                         placeholder="Введите пароль"
                     />
+                    <Input
+                        name="confirmPassword"
+                        label="Повторите пароль"
+                        type="password"
+                        placeholder="Повторите введенный пароль"
+                    />
                 </div>
                 <div className={cl.form_buttons}>
-                    <NavLink to={routerPath.registration}>
+                    <NavLink to={routerPath.authorization}>
                         <Button
                             type="button"
-                            title="Запросить доступ"
+                            title="Войти с логином и паролем"
                             className={cl.registerButton}
                         />
                     </NavLink>
                     <NavLink to={routerPath.adminPanel}>
-                        <Button type="button" title="Войти" className={cl.enterButton} />
+                        <Button type="button" title="Регистрация" className={cl.enterButton} />
                     </NavLink>
                 </div>
             </form>
         </AuthAndRegBlock>
     )
 }
-export default Authorization
+
+export default Registration

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { navbarItems } from './constants'
-import MainLogo from '../../pages/Authorization/MainLogo'
+import MainLogo from '../AuthAndRegBlock/MainLogo'
 import cl from './Navbar.module.scss'
 
 const Navbar: React.FC = () => {
