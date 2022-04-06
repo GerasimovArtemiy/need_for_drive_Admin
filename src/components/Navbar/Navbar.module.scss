@@ -31,7 +31,7 @@
         min-width: 117px;
 
         @media screen and (max-width: 1023px) {
-            padding: 13.5px 10px;
+            padding: 14.5px 10px;
             min-width: auto;
         }
     }
@@ -86,9 +86,18 @@
         &:last-of-type {
             border-bottom: 1px solid #e1e5eb;
         }
-
         @media screen and (max-width: 1023px) {
             padding: 9px 14px;
+        }
+
+        &_active {
+            @extend .link_container;
+            color: $color-blue;
+            background: #fbfbfb;
+            & path {
+                transition: 0.3s;
+                fill: $color-blue;
+            }
         }
     }
     &_img {

@@ -11,8 +11,8 @@ import cl from './AdminPage.module.scss'
 const AdminPage: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const takenToken = localStorage.getItem('accessToken')
     const { isDropMenuProfile } = useAppSelector((state) => state.modal)
+    const takenToken = localStorage.getItem('accessToken')
 
     const closeDropMenu = (): void => {
         if (isDropMenuProfile) dispatch(setDropMenuProfile(false))

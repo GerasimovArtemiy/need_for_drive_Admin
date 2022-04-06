@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface IState {
+export interface IModalState {
     isDropMenuProfile: boolean
 }
 
-const initialState: IState = {
+const initialState: IModalState = {
     isDropMenuProfile: false,
 }
 

@@ -2,15 +2,23 @@ import React from 'react'
 import { SearchIcon, BellIcon, ArrowIcon } from './HeaderIcons'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { setDropMenuProfile } from '../../store/Slices/ModalSlice'
+import { logout } from '../../store/Slices/AuthSlice'
 import cl from './Header.module.scss'
 import avatar from '../../assets/img/pepe.png'
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
     const { isDropMenuProfile } = useAppSelector((state) => state.modal)
+
     const propagationDropMenu = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.stopPropagation()
     }
+
+    const logoutAdminPanel = (): void => {
+        if (confirm('Вы действительно хотите выйти из аккаунта')) dispatch(logout())
+        dispatch(setDropMenuProfile(false))
+    }
+
     return (
         <>
             <header className={cl.header}>
@@ -59,7 +67,11 @@ const Header: React.FC = () => {
                 <button type="button" className={cl.adminPanel_btn}>
                     Настройки
                 </button>
-                <button type="button" className={cl.adminPanel_btn}>
+                <button
+                    onClick={() => logoutAdminPanel()}
+                    type="button"
+                    className={cl.adminPanel_btn}
+                >
                     Выйти
                 </button>
             </div>
