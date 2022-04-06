@@ -1,11 +1,13 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import React, { useEffect } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import Button from '../../components/UI/Buttons/Button'
 import Input from '../../components/UI/Inputs/Input/Input'
 import { routerPath } from '../../routes/routerPath'
 import AuthAndRegBlock from '../../components/AuthAndRegBlock/AuthAndRegBlock'
 import cl from './Authorization.module.scss'
+import { login } from '../../store/Slices/AuthSlice'
 
 export interface IFormValues {
     username: string
@@ -14,6 +16,15 @@ export interface IFormValues {
 }
 
 const Authorization: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const { error, status } = useAppSelector((state) => state.auth)
+
+    useEffect(() => {
+        const takenToken = localStorage.getItem('accessToken')
+        if (status === 'resolved' && takenToken) navigate(routerPath.adminPanel)
+    }, [status, navigate])
+
     const {
         register,
         formState: { errors },
@@ -23,8 +34,9 @@ const Authorization: React.FC = () => {
         mode: 'onBlur',
     })
 
-    const onSubmit = (data: IFormValues) => {
-        alert(JSON.stringify(data))
+    const onSubmit: SubmitHandler<IFormValues> = (data) => {
+        dispatch(login(data))
+        console.log(data)
         reset()
     }
 
@@ -53,6 +65,7 @@ const Authorization: React.FC = () => {
                     <div className={cl.form_error}>
                         {errors?.password?.message && <p>{errors.password.message}</p>}
                     </div>
+                    <div className={cl.access_error}>{error}</div>
                 </div>
                 <div className={cl.form_buttons}>
                     <NavLink to={routerPath.registration}>

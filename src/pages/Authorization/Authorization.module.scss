@@ -38,6 +38,12 @@
         justify-content: space-between;
     }
 }
+.access_error {
+    font-family: $bold;
+    color: red;
+    text-align: center;
+    font-size: 12px;
+}
 
 .enterButton {
     border: none;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { routerPath } from '../../routes/routerPath'
 import AuthAndRegBlock from '../../components/AuthAndRegBlock/AuthAndRegBlock'
 import cl from './Registration.module.scss'
@@ -18,7 +18,7 @@ const Registration: React.FC = () => {
         mode: 'onBlur',
     })
 
-    const onSubmit = (data: IFormValues) => {
+    const onSubmit: SubmitHandler<IFormValues> = (data) => {
         alert(JSON.stringify(data))
         reset()
     }
