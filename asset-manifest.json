@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/need_for_drive_Admin/static/css/main.30ce0163.css",
-    "main.js": "/need_for_drive_Admin/static/js/main.7779e2b6.js",
-    "static/media/helvetica_regular.svg": "/need_for_drive_Admin/static/media/helvetica_regular.0510c66d5546e5e36fa9.svg",
-    "static/media/helvetica_bold.svg": "/need_for_drive_Admin/static/media/helvetica_bold.f6099ed6fdd8d4613f42.svg",
+    "main.css": "/need_for_drive_Admin/static/css/main.9023bb33.css",
+    "main.js": "/need_for_drive_Admin/static/js/main.47cbce8b.js",
+    "static/media/helvetica_regular.svg": "/need_for_drive_Admin/static/media/helvetica_regular.38c583c0067f1e31cea2.svg",
+    "static/media/helvetica_bold.svg": "/need_for_drive_Admin/static/media/helvetica_bold.5574092a2d54e72749af.svg",
     "static/media/helvetica_regular.eot": "/need_for_drive_Admin/static/media/helvetica_regular.41c63ce83e3cd0799024.eot",
     "static/media/helvetica_regular.ttf": "/need_for_drive_Admin/static/media/helvetica_regular.7ad3091287a9abd2bb4a.ttf",
     "static/media/helvetica_bold.eot": "/need_for_drive_Admin/static/media/helvetica_bold.8ac406bf93f4c385f12a.eot",
@@ -16,11 +16,11 @@
     "static/media/pepe.png": "/need_for_drive_Admin/static/media/pepe.7e397d23e583f74cd5b5.png",
     "index.html": "/need_for_drive_Admin/index.html",
     "static/media/checkbox-icon.svg": "/need_for_drive_Admin/static/media/checkbox-icon.599a4157a9af0498854e.svg",
-    "main.30ce0163.css.map": "/need_for_drive_Admin/static/css/main.30ce0163.css.map",
-    "main.7779e2b6.js.map": "/need_for_drive_Admin/static/js/main.7779e2b6.js.map"
+    "main.9023bb33.css.map": "/need_for_drive_Admin/static/css/main.9023bb33.css.map",
+    "main.47cbce8b.js.map": "/need_for_drive_Admin/static/js/main.47cbce8b.js.map"
   },
   "entrypoints": [
-    "static/css/main.30ce0163.css",
-    "static/js/main.7779e2b6.js"
+    "static/css/main.9023bb33.css",
+    "static/js/main.47cbce8b.js"
   ]
 }
