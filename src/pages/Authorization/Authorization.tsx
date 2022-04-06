@@ -36,7 +36,6 @@ const Authorization: React.FC = () => {
 
     const onSubmit: SubmitHandler<IFormValues> = (data) => {
         dispatch(login(data))
-        console.log(data)
         reset()
     }
 
