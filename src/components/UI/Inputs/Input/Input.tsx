@@ -1,11 +1,11 @@
 import React from 'react'
 import { UseFormRegister } from 'react-hook-form'
-import { IFormValues } from '../../../../pages/Authorization/Authorization'
+import { IAuthFormValues } from '../../../Interfaces/AuthValidationInterface'
 import cl from './Input.module.scss'
 
 interface IPropsInput {
-    register: UseFormRegister<IFormValues>
-    name: 'username' | 'password' | 'confirmPassword'
+    register: UseFormRegister<IAuthFormValues>
+    name: 'firstName' | 'username' | 'password' | 'confirmPassword'
     label: string
     type: string
     placeholder: string
@@ -20,17 +20,7 @@ const Input: React.FC<IPropsInput> = (props) => {
                 {label}
             </label>
             <input
-                {...register(name, {
-                    required: 'Поле обязательно к заполнению',
-                    pattern: {
-                        value: /[a-zA-Z0-9]/,
-                        message: 'Используйте только латинские буквы и цифры',
-                    },
-                    minLength: {
-                        value: 5,
-                        message: 'Минимум 5 символов',
-                    },
-                })}
+                {...register(name)}
                 type={type}
                 name={name}
                 className={cl.input}

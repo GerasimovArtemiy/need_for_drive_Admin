@@ -8,12 +8,9 @@ import { routerPath } from '../../routes/routerPath'
 import AuthAndRegBlock from '../../components/AuthAndRegBlock/AuthAndRegBlock'
 import cl from './Authorization.module.scss'
 import { login } from '../../store/Slices/AuthSlice'
-
-export interface IFormValues {
-    username: string
-    password: string
-    confirmPassword: string
-}
+import { yupResolver } from '@hookform/resolvers/yup'
+import { AuthSchema } from '../../YupValidations/AuthValidation'
+import { IAuthFormValues } from '../../components/Interfaces/AuthValidationInterface'
 
 const Authorization: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -30,11 +27,12 @@ const Authorization: React.FC = () => {
         formState: { errors },
         handleSubmit,
         reset,
-    } = useForm<IFormValues>({
+    } = useForm<IAuthFormValues>({
         mode: 'onBlur',
+        resolver: yupResolver(AuthSchema),
     })
 
-    const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    const onSubmit: SubmitHandler<IAuthFormValues> = (data) => {
         dispatch(login(data))
         reset()
     }

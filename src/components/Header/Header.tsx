@@ -9,6 +9,7 @@ import avatar from '../../assets/img/pepe.png'
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
     const { isDropMenuProfile } = useAppSelector((state) => state.modal)
+    const firstName = localStorage.getItem('firstName')
 
     const propagationDropMenu = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.stopPropagation()
@@ -43,7 +44,7 @@ const Header: React.FC = () => {
                     className={cl.profile}
                 >
                     <img className={cl.profile_avatar} src={avatar} />
-                    <p className={cl.profile_name}>Admin</p>
+                    <p className={cl.profile_name}>{firstName || 'Admin'} </p>
                     <div className={cl.adminPanel}>
                         <button
                             className={
