@@ -10,6 +10,8 @@
     background: #ffffff;
     box-shadow: 0 2.5px 9.5px rgba(90, 97, 105, 0.12);
     width: 100%;
+    position: relative;
+    z-index: 2;
 
     @media screen and (max-width: 1023px) {
         height: 50px;
@@ -78,6 +80,7 @@
     align-items: center;
     padding: 14px 0 14px 26px;
     min-width: 169px;
+    cursor: pointer;
 
     @media screen and (max-width: 766px) {
         min-width: auto;
@@ -109,14 +112,73 @@
         outline: none;
         border: none;
         background: none;
-        cursor: pointer;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
+        transition: 0.3s;
 
         @media screen and (max-width: 400px) {
             display: none;
+        }
+        &_active {
+            @extend .adminPanel_arrow;
+            transform: rotate(540deg);
+        }
+    }
+    &_dropMenu {
+        font-family: $light;
+        position: fixed;
+        top: 68px;
+        right: 0;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        border: 1px solid $color-light-gray;
+        width: 220px;
+        box-shadow: 0px 1px 0px rgba(90, 97, 105, 0.11), 0px 2px 4px rgba(90, 97, 105, 0.12),
+            0px 5px 5px rgba(90, 97, 105, 0.06), 0px 3.5px 35px rgba(90, 97, 105, 0.1);
+
+        transition: 0.3s;
+        transform: translateY(-100px);
+
+        @media screen and (max-width: 1023px) {
+            top: 50px;
+        }
+        @media screen and (max-width: 767px) {
+            width: 159px;
+        }
+        @media screen and (max-width: 400px) {
+            width: 137px;
+        }
+        &_active {
+            @extend .adminPanel_dropMenu;
+            transform: translateY(0px);
+        }
+    }
+    &_btn {
+        width: 100%;
+        font-size: 14px;
+        border: none;
+        padding: 6px;
+        background-color: white;
+        color: $color-dark-blue;
+        cursor: pointer;
+
+        @media screen and (max-width: 400px) {
+            font-size: 13px;
+        }
+        &:hover {
+            background: radial-gradient(circle, $color-blue, $color-accent 100%);
+            background-position: 0 100%;
+            background-size: 100% 1px;
+            background-repeat: repeat-x;
+        }
+        &:active {
+            background: #f6f6f6;
+            border-bottom: 1px solid $color-accent;
         }
     }
 }

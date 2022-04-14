@@ -1,50 +1,81 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import Button from '../../components/UI/Buttons/Button'
 import Input from '../../components/UI/Inputs/Input/Input'
 import { routerPath } from '../../routes/routerPath'
+import AuthAndRegBlock from '../../components/AuthAndRegBlock/AuthAndRegBlock'
 import cl from './Authorization.module.scss'
-import MainLogo from './MainLogo'
+import { login } from '../../store/Slices/AuthSlice'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { AuthSchema } from '../../YupValidations/AuthValidation'
+import { IAuthFormValues } from '../../components/Interfaces/AuthValidationInterface'
 
 const Authorization: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const { error, status } = useAppSelector((state) => state.auth)
+
+    useEffect(() => {
+        const takenToken = localStorage.getItem('accessToken')
+        if (status === 'resolved' && takenToken) navigate(routerPath.adminPanel)
+    }, [status, navigate])
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        reset,
+    } = useForm<IAuthFormValues>({
+        mode: 'onBlur',
+        resolver: yupResolver(AuthSchema),
+    })
+
+    const onSubmit: SubmitHandler<IAuthFormValues> = (data) => {
+        dispatch(login(data))
+        reset()
+    }
+
     return (
-        <section className={cl.wrapper}>
-            <div className={cl.container}>
-                <div className={cl.header}>
-                    <div className={cl.header_logo}>
-                        <MainLogo />
+        <AuthAndRegBlock>
+            <form className={cl.form} onSubmit={handleSubmit(onSubmit)}>
+                <h3 className={cl.form_header}>Вход</h3>
+                <div className={cl.form_inputs}>
+                    <Input
+                        register={register}
+                        name="username"
+                        label="Почта"
+                        type="text"
+                        placeholder="Введите почту"
+                    />
+                    <div className={cl.form_error}>
+                        {errors?.username?.message && <p>{errors.username.message}</p>}
                     </div>
-                    <h2 className={cl.header_title}>Need for drive</h2>
+                    <Input
+                        name="password"
+                        register={register}
+                        label="Пароль"
+                        type="password"
+                        placeholder="Введите пароль"
+                    />
+                    <div className={cl.form_error}>
+                        {errors?.password?.message && <p>{errors.password.message}</p>}
+                    </div>
+                    <div className={cl.access_error}>{error}</div>
                 </div>
-                <form className={cl.form}>
-                    <h3 className={cl.form_header}>Вход</h3>
-                    <div className={cl.form_inputs}>
-                        <Input
-                            name="username"
-                            label="Почта"
-                            type="text"
-                            placeholder="Введите логин"
-                        />
-                        <Input
-                            name="password"
-                            label="Пароль"
-                            type="password"
-                            placeholder="Введите пароль"
-                        />
-                    </div>
-                    <div className={cl.form_buttons}>
+                <div className={cl.form_buttons}>
+                    <NavLink to={routerPath.registration}>
                         <Button
                             type="button"
                             title="Запросить доступ"
                             className={cl.registerButton}
                         />
-                        <NavLink to={routerPath.adminPanel}>
-                            <Button type="button" title="Войти" className={cl.enterButton} />
-                        </NavLink>
-                    </div>
-                </form>
-            </div>
-        </section>
+                    </NavLink>
+                    <Button type="submit" title="Войти" className={cl.enterButton} />
+                </div>
+            </form>
+        </AuthAndRegBlock>
     )
 }
 export default Authorization
