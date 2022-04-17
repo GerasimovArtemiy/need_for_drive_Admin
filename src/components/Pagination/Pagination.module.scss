@@ -1,0 +1,48 @@
+@import '../../styles/variables.scss';
+
+.pagination {
+    &_container {
+        display: flex;
+        list-style-type: none;
+        font-family: $light;
+    }
+    &_item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 17px;
+        letter-spacing: -0.471429px;
+        color: $color-blue;
+        box-sizing: border-box;
+        border-radius: 16px;
+        margin: auto 2px;
+        cursor: pointer;
+
+        @media screen and (max-width: 767px) {
+            font-size: 14px;
+        }
+    }
+}
+.page {
+    &_selected {
+        color: #eeeeee;
+        background-color: $color-blue;
+    }
+    &_disabled {
+        color: red;
+        pointer-events: none;
+        &:hover {
+            cursor: default;
+        }
+    }
+}
+.dots {
+    cursor: default;
+}
+.arrow {
+    padding-top: 2px;
+}
