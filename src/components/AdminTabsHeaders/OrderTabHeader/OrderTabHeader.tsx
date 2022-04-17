@@ -7,7 +7,6 @@ import cl from './OrderTabHeader.module.scss'
 
 const OrderTabHeader: React.FC = () => {
     const dispatch = useAppDispatch()
-    dispatch(getOrders({ limit: 5, page: 2 }))
     return (
         <div className={cl.filters}>
             <div className={cl.filters_container}>
