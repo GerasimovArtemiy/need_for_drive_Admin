@@ -21,7 +21,6 @@ const OrderTab: React.FC = () => {
             const { data } = await OrderService.getOrders({ page: currentPage, limit: limit })
             setOrders(data.data)
             setTotalCount(data.count)
-            console.log(data)
         }
         getLimitOrders()
     }, [currentPage])

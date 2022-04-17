@@ -3,6 +3,7 @@ import cl from './OrderItem.module.scss'
 import CheckboxGroup from '../../../UI/Inputs/Checkboxes/CheckboxGroup'
 import OrderItemButtons from './OrderItemButtons/OrderItemButtons'
 import { IOrder } from '../../../Interfaces/OrderInterface'
+import { dateConverter } from '../../../../utils/DateConverter'
 
 interface IOrderItemProps {
     order: IOrder
@@ -41,7 +42,11 @@ const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
                             </span>
                             , {order.pointId ? order.pointId.address : 'Не известно'}
                         </div>
-                        <div className={cl.descr_item}>12.06.2019 12:00 — 13.06.2019 12:00</div>
+                        <div className={cl.descr_item}>
+                            {' '}
+                            {order.dateFrom ? dateConverter(order.dateFrom) : 'Не известно'} {' — '}
+                            {order.dateTo ? dateConverter(order.dateTo) : 'Не известно'}
+                        </div>
                         <div className={cl.descr_item}>
                             Цвет :{' '}
                             <span className={cl.strong}>
