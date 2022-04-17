@@ -3,4 +3,9 @@ export enum apiPath {
     register = 'auth/register',
     order = '/db/order',
     orderStatus = '/db/orderStatus',
+    categories = '/db/category',
+    cars = '/db/car',
+    cities = 'db/city',
+    point = '/db/point',
+    rate = '/db/rate',
 }

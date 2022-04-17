@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
+import { IOrderParamsInterface } from '../components/Interfaces/OrderParamsInterface'
 
 const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({
@@ -11,12 +12,8 @@ const responseAPI = axios.create({
         Authorization: `Bearer ${bearerToken}`,
     },
 })
-interface IParams {
-    limit: number
-    page: number
-}
 export default class OrderService {
-    static async getOrders(params: IParams): Promise<AxiosResponse> {
+    static async getOrders(params: IOrderParamsInterface): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.order, { params })
     }
 

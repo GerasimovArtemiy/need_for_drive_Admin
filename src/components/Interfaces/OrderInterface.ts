@@ -1,11 +1,12 @@
 import { IRate } from './RateInterface'
 import { ICar } from './CarInterface'
 
+export interface IOrderStatus {
+    name: string
+    id: string
+}
 export interface IOrder {
-    orderStatusId: {
-        name: string
-        id: string
-    }
+    orderStatusId: IOrderStatus
     cityId: {
         name: string
         id: string
@@ -25,4 +26,10 @@ export interface IOrder {
     isNeedChildChair: boolean
     isRightWheel: boolean
     id: string
+}
+
+export interface IOrdersResponse {
+    data: IOrder[]
+    count: number
+    fields?: any
 }
