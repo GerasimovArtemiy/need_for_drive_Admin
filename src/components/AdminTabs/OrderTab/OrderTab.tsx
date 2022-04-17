@@ -6,11 +6,13 @@ import SelectFilter from '../../UI/SelectFilter/SelectFilter'
 import OrderItem from './OrderItem/OrderItem'
 import cl from './OrderTab.module.scss'
 import { IOrder } from '../../Interfaces/OrderInterface'
+import MyLoader from '../../Loader/MyLoader'
 
 const OrderTab: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [orders, setOrders] = useState<IOrder[]>([])
     const [totalCount, setTotalCount] = useState<number>(0)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const limit = 5
     const changePage = (page: number) => {
@@ -18,9 +20,11 @@ const OrderTab: React.FC = () => {
     }
     useEffect(() => {
         async function getLimitOrders() {
+            setIsLoading(true)
             const { data } = await OrderService.getOrders({ page: currentPage, limit: limit })
             setOrders(data.data)
             setTotalCount(data.count)
+            setIsLoading(false)
         }
         getLimitOrders()
     }, [currentPage])
@@ -40,9 +44,11 @@ const OrderTab: React.FC = () => {
                         <Button type="button" title="Применить" className={cl.btn} />
                     </div>
                 </div>
-                {orders.map((order) => (
-                    <OrderItem key={order.id} order={order} />
-                ))}
+                {isLoading ? (
+                    <MyLoader />
+                ) : (
+                    orders.map((order) => <OrderItem key={order.id} order={order} />)
+                )}
                 <Pagination
                     className={cl.paginationSection}
                     currentPage={currentPage}

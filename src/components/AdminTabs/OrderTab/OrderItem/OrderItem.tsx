@@ -48,7 +48,7 @@ const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
                             {order.dateTo ? dateConverter(order.dateTo) : 'Не известно'}
                         </div>
                         <div className={cl.descr_item}>
-                            Цвет :{' '}
+                            Цвет:{' '}
                             <span className={cl.strong}>
                                 {order.color ? order.color : 'Не известно'}
                             </span>
