@@ -9,14 +9,27 @@ import cl from './OrderTab.module.scss'
 
 const OrderTab: React.FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const limit = 5
+    const limit = 6
     const dispatch = useAppDispatch()
-    const { orders } = useAppSelector((state) => state.order)
+    const { orders, orderStatuses } = useAppSelector((state) => state.order)
+    const { allCars } = useAppSelector((state) => state.cars)
+    const { cities } = useAppSelector((state) => state.city)
 
     const changePage = (page: number) => {
         setCurrentPage(page)
     }
-
+    const showReadyContent = (): boolean => {
+        if (
+            orders.status === 'resolved' &&
+            allCars.status === 'resolved' &&
+            cities.status === 'resolved' &&
+            orderStatuses.status === 'resolved'
+        ) {
+            return true
+        } else {
+            return false
+        }
+    }
     useEffect(() => {
         dispatch(getOrders({ page: currentPage, limit }))
     }, [currentPage])
@@ -26,12 +39,12 @@ const OrderTab: React.FC = () => {
             <h2 className={cl.order_title}>Заказы</h2>
             <div className={cl.order_container}>
                 <AdminTabsHeaders />
-                {orders.status !== 'resolved' ? (
-                    <MyLoader />
-                ) : (
+                {showReadyContent() ? (
                     orders.orderItems.data.map((order) => (
                         <OrderItem key={order.id} order={order} />
                     ))
+                ) : (
+                    <MyLoader />
                 )}
                 <Pagination
                     className={cl.paginationSection}

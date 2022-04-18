@@ -7,8 +7,8 @@ const CarTabHeader: React.FC = () => {
     return (
         <div className={cl.filters}>
             <div className={cl.filters_container}>
-                <SelectFilter />
-                <SelectFilter />
+                {/* <SelectFilter /> */}
+                {/* <SelectFilter /> */}
             </div>
             <div className={cl.filters_btns}>
                 <Button type="button" title="Сбросить" className={cl.btn_reset} />
