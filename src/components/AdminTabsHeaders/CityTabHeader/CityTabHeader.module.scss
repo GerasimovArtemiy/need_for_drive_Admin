@@ -1,0 +1,50 @@
+@import '../../../styles/variables';
+
+.addCity {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-bottom: 30px;
+    font-family: $light;
+    border-bottom: 1px solid $color-light-gray;
+
+    @media screen and (max-width: 600px) {
+        margin-bottom: 15px;
+    }
+    &_input {
+        width: 40%;
+        height: 32px;
+        padding-left: 15px;
+        outline: none;
+        color: $color-dark-blue;
+        border: 1px solid $color-dark-gray;
+        border-radius: 6px;
+
+        @media screen and (max-width: 500px) {
+            width: 60%;
+        }
+    }
+    &_button {
+        padding: 9px 15px;
+        width: 115px;
+        height: 38px;
+        color: white;
+        font-size: 13px;
+        line-height: 13px;
+        background: $color-blue;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        @media screen and (max-width: 500px) {
+            width: 90px;
+        }
+        &:hover {
+            opacity: 0.85;
+        }
+        &:active {
+            background: #0161c7;
+        }
+    }
+}
