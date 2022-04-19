@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
-import { getCategory, getCarsByParams, setCarFilter } from '../../../store/Slices/CarsSlice'
+import {
+    getCategory,
+    getCarsByParams,
+    setCarFilter,
+    resetCarFilter,
+} from '../../../store/Slices/CarsSlice'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
 import { ICategory } from '../../Interfaces/CarInterface'
 import { ICarParamsInterface } from '../../Interfaces/ParamsInterface'
@@ -28,6 +33,11 @@ const CarTabHeader: React.FC = () => {
         dispatch(getCarsByParams(params))
     }
 
+    const clearFilter = (): void => {
+        setCategories({} as ICategory)
+        dispatch(resetCarFilter())
+        dispatch(getCarsByParams({ page: 1, limit: 5 }))
+    }
     useEffect(() => {
         dispatch(getCategory())
     }, [dispatch])
@@ -44,7 +54,12 @@ const CarTabHeader: React.FC = () => {
                 />
             </div>
             <div className={cl.filters_btns}>
-                <Button type="button" title="Сбросить" className={cl.btn_reset} />
+                <Button
+                    type="button"
+                    title="Сбросить"
+                    className={cl.btn_reset}
+                    onClick={clearFilter}
+                />
                 <Button
                     type="button"
                     title="Применить"
