@@ -4,19 +4,18 @@ import OrderItem from './OrderItem/OrderItem'
 import AdminTabsHeaders from '../../AdminTabsHeaders/AdminTabsHeaders'
 import MyLoader from '../../Loader/MyLoader'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
-import { getOrders } from '../../../store/Slices/OrderSlice'
+import { getOrders, setCurrentPage } from '../../../store/Slices/OrderSlice'
 import cl from './OrderTab.module.scss'
 
 const OrderTab: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1)
     const limit = 6
     const dispatch = useAppDispatch()
-    const { orders, orderStatuses } = useAppSelector((state) => state.order)
+    const { orders, orderStatuses, filterOrders } = useAppSelector((state) => state.order)
     const { allCars } = useAppSelector((state) => state.cars)
     const { cities } = useAppSelector((state) => state.city)
 
     const changePage = (page: number) => {
-        setCurrentPage(page)
+        dispatch(setCurrentPage(page))
     }
     const showReadyContent = (): boolean => {
         if (
@@ -31,8 +30,8 @@ const OrderTab: React.FC = () => {
         }
     }
     useEffect(() => {
-        dispatch(getOrders({ page: currentPage, limit }))
-    }, [currentPage])
+        dispatch(getOrders({ ...filterOrders.params, page: filterOrders.currentPage, limit }))
+    }, [filterOrders.currentPage])
 
     return (
         <section className={cl.order}>
@@ -48,7 +47,7 @@ const OrderTab: React.FC = () => {
                 )}
                 <Pagination
                     className={cl.paginationSection}
-                    currentPage={currentPage}
+                    currentPage={filterOrders.currentPage}
                     totalCount={orders.orderItems.count}
                     pageSize={limit}
                     onPageChange={changePage}

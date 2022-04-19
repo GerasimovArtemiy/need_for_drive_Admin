@@ -12,6 +12,10 @@ interface IOrderState {
         data: IOrderStatus[]
         status: string | null
     }
+    filterOrders: {
+        params: IOrderParamsInterface
+        currentPage: number
+    }
 }
 
 const initialState: IOrderState = {
@@ -26,6 +30,10 @@ const initialState: IOrderState = {
     orderStatuses: {
         status: null,
         data: [],
+    },
+    filterOrders: {
+        params: {} as IOrderParamsInterface,
+        currentPage: 1,
     },
 }
 
@@ -45,6 +53,15 @@ const OrderSLice = createSlice({
     name: 'order',
     initialState,
     reducers: {
+        setFilterOrders(state, action: PayloadAction<IOrderParamsInterface>) {
+            state.filterOrders.params = action.payload
+        },
+        resetFilterOrders(state) {
+            state.filterOrders = initialState.filterOrders
+        },
+        setCurrentPage(state, action: PayloadAction<number>) {
+            state.filterOrders.currentPage = action.payload
+        },
         resetOrders(state) {
             return { ...state, ...initialState }
         },
@@ -86,5 +103,5 @@ const OrderSLice = createSlice({
         })
     },
 })
-
+export const { setCurrentPage, setFilterOrders, resetFilterOrders } = OrderSLice.actions
 export default OrderSLice.reducer

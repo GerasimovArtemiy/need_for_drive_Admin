@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react'
 import SelectFilter from '../../UI/SelectFilter/SelectFilter'
 import Button from '../../UI/Buttons/Button'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
-import { getOrderStatuses, getOrders } from '../../../store/Slices/OrderSlice'
+import {
+    getOrderStatuses,
+    getOrders,
+    setFilterOrders,
+    resetFilterOrders,
+} from '../../../store/Slices/OrderSlice'
 import { getAllCars } from '../../../store/Slices/CarsSlice'
 import { getCities } from '../../../store/Slices/CitySlice'
 import { ICar } from '../../Interfaces/CarInterface'
@@ -34,11 +39,12 @@ const OrderTabHeader: React.FC = () => {
     const showFilterOrders = (): void => {
         const params: IOrderParamsInterface = {
             page: 0,
-            limit: 5,
+            limit: 6,
             carId: car ? car.id : undefined,
             cityId: city ? city.id : undefined,
             orderStatusId: status ? status.id : undefined,
         }
+        dispatch(setFilterOrders(params))
         dispatch(getOrders(params))
     }
 
@@ -46,6 +52,7 @@ const OrderTabHeader: React.FC = () => {
         setCar({} as ICar)
         setCity({} as ICity)
         setStatus({} as IOrderStatus)
+        dispatch(resetFilterOrders())
         dispatch(getOrders({ page: 1, limit: 5 }))
     }
 
