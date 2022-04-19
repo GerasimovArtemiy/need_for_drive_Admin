@@ -5,3 +5,9 @@ export interface IOrderParamsInterface {
     carId?: string
     orderStatusId?: string
 }
+
+export interface ICarParamsInterface {
+    page?: number
+    limit?: number
+    categoryId?: string
+}

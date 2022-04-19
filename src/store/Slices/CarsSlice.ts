@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CarService from '../../API/carService'
-import { ICar, ICategory } from '../../components/Interfaces/CarInterface'
+import { ICar, ICarsResponse, ICategory } from '../../components/Interfaces/CarInterface'
+import { ICarParamsInterface } from '../../components/Interfaces/ParamsInterface'
 
 interface ICarState {
     category: {
@@ -10,6 +11,14 @@ interface ICarState {
     allCars: {
         data: ICar[]
         status: string | null
+    }
+    carsByParams: {
+        items: ICarsResponse
+        status: string | null
+    }
+    filter: {
+        params: ICarParamsInterface
+        currentPage: number
     }
 }
 
@@ -22,6 +31,18 @@ const initialState: ICarState = {
         data: [],
         status: null,
     },
+    carsByParams: {
+        items: {
+            data: [],
+            count: 0,
+            fields: {},
+        },
+        status: null,
+    },
+    filter: {
+        params: {} as ICarParamsInterface,
+        currentPage: 1,
+    },
 }
 
 export const getCategory = createAsyncThunk('cars/getCategory', async () => {
@@ -32,11 +53,27 @@ export const getAllCars = createAsyncThunk('cars/getAllCars', async () => {
     const response = await CarService.getCars()
     return response.data.data
 })
+export const getCarsByParams = createAsyncThunk(
+    'cars/getCarsByParams',
+    async (params: ICarParamsInterface) => {
+        const response = await CarService.getCarsByParams(params)
+        return response.data
+    }
+)
 
 const CarsSlice = createSlice({
     name: 'cars',
     initialState,
     reducers: {
+        setCarFilter(state, action: PayloadAction<ICarParamsInterface>) {
+            state.filter.params = action.payload
+        },
+        resetCarFilter(state) {
+            state.filter = initialState.filter
+        },
+        setCarCurrentPage(state, action: PayloadAction<number>) {
+            state.filter.currentPage = action.payload
+        },
         resetCars(state) {
             return { ...state, ...initialState }
         },
@@ -73,7 +110,27 @@ const CarsSlice = createSlice({
         builder.addCase(getAllCars.rejected, (state) => {
             state.allCars.status = 'rejected'
         })
+
+        // =======================================================
+
+        builder.addCase(getCarsByParams.pending, (state) => {
+            state.carsByParams.status = 'loading'
+        })
+        builder.addCase(
+            getCarsByParams.fulfilled,
+            (state, action: PayloadAction<ICarsResponse>) => {
+                if (action.payload) {
+                    state.carsByParams.items = action.payload
+                    state.carsByParams.status = 'resolved'
+                } else {
+                    state.carsByParams.status = 'rejected'
+                }
+            }
+        )
+        builder.addCase(getCarsByParams.rejected, (state) => {
+            state.carsByParams.status = 'rejected'
+        })
     },
 })
-
+export const { setCarFilter, resetCarFilter, setCarCurrentPage } = CarsSlice.actions
 export default CarsSlice.reducer

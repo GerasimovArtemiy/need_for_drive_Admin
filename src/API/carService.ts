@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { IOrderParamsInterface } from '../components/Interfaces/ParamsInterface'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
 
@@ -18,5 +19,9 @@ export default class CarService {
 
     static async getCars(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.cars)
+    }
+
+    static async getCarsByParams(params: IOrderParamsInterface): Promise<AxiosResponse> {
+        return responseAPI.get(apiPath.cars, { params })
     }
 }

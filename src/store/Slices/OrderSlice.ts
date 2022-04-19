@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import OrderService from '../../API/orderService'
 import { IOrderStatus, IOrdersResponse } from '../../components/Interfaces/OrderInterface'
-import { IOrderParamsInterface } from '../../components/Interfaces/OrderParamsInterface'
+import { IOrderParamsInterface } from '../../components/Interfaces/ParamsInterface'
 
 interface IOrderState {
     orders: {
@@ -12,7 +12,7 @@ interface IOrderState {
         data: IOrderStatus[]
         status: string | null
     }
-    filterOrders: {
+    filter: {
         params: IOrderParamsInterface
         currentPage: number
     }
@@ -31,7 +31,7 @@ const initialState: IOrderState = {
         status: null,
         data: [],
     },
-    filterOrders: {
+    filter: {
         params: {} as IOrderParamsInterface,
         currentPage: 1,
     },
@@ -53,14 +53,14 @@ const OrderSLice = createSlice({
     name: 'order',
     initialState,
     reducers: {
-        setFilterOrders(state, action: PayloadAction<IOrderParamsInterface>) {
-            state.filterOrders.params = action.payload
+        setOrderFilter(state, action: PayloadAction<IOrderParamsInterface>) {
+            state.filter.params = action.payload
         },
-        resetFilterOrders(state) {
-            state.filterOrders = initialState.filterOrders
+        resetOrderFilter(state) {
+            state.filter = initialState.filter
         },
-        setCurrentPage(state, action: PayloadAction<number>) {
-            state.filterOrders.currentPage = action.payload
+        setOrderCurrentPage(state, action: PayloadAction<number>) {
+            state.filter.currentPage = action.payload
         },
         resetOrders(state) {
             return { ...state, ...initialState }
@@ -103,5 +103,5 @@ const OrderSLice = createSlice({
         })
     },
 })
-export const { setCurrentPage, setFilterOrders, resetFilterOrders } = OrderSLice.actions
+export const { setOrderCurrentPage, setOrderFilter, resetOrderFilter } = OrderSLice.actions
 export default OrderSLice.reducer

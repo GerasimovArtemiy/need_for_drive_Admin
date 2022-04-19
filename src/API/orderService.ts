@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
-import { IOrderParamsInterface } from '../components/Interfaces/OrderParamsInterface'
+import { IOrderParamsInterface } from '../components/Interfaces/ParamsInterface'
 
 const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({

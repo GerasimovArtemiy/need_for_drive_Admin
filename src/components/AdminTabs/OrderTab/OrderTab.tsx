@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Pagination from '../../Pagination/Pagination'
 import OrderItem from './OrderItem/OrderItem'
 import AdminTabsHeaders from '../../AdminTabsHeaders/AdminTabsHeaders'
 import MyLoader from '../../Loader/MyLoader'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
-import { getOrders, setCurrentPage } from '../../../store/Slices/OrderSlice'
+import { getOrders, resetOrderFilter, setOrderCurrentPage } from '../../../store/Slices/OrderSlice'
 import cl from './OrderTab.module.scss'
 
 const OrderTab: React.FC = () => {
     const limit = 6
     const dispatch = useAppDispatch()
-    const { orders, orderStatuses, filterOrders } = useAppSelector((state) => state.order)
+    const { orders, orderStatuses, filter } = useAppSelector((state) => state.order)
     const { allCars } = useAppSelector((state) => state.cars)
     const { cities } = useAppSelector((state) => state.city)
 
     const changePage = (page: number) => {
-        dispatch(setCurrentPage(page))
+        dispatch(setOrderCurrentPage(page))
     }
     const showReadyContent = (): boolean => {
         if (
@@ -29,9 +29,16 @@ const OrderTab: React.FC = () => {
             return false
         }
     }
+
     useEffect(() => {
-        dispatch(getOrders({ ...filterOrders.params, page: filterOrders.currentPage, limit }))
-    }, [filterOrders.currentPage])
+        dispatch(getOrders({ ...filter.params, page: filter.currentPage, limit }))
+    }, [filter.currentPage])
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetOrderFilter())
+        }
+    }, [])
 
     return (
         <section className={cl.order}>
@@ -47,7 +54,7 @@ const OrderTab: React.FC = () => {
                 )}
                 <Pagination
                     className={cl.paginationSection}
-                    currentPage={filterOrders.currentPage}
+                    currentPage={filter.currentPage}
                     totalCount={orders.orderItems.count}
                     pageSize={limit}
                     onPageChange={changePage}

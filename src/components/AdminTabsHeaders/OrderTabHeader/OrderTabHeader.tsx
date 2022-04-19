@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import {
     getOrderStatuses,
     getOrders,
-    setFilterOrders,
-    resetFilterOrders,
+    setOrderFilter,
+    resetOrderFilter,
 } from '../../../store/Slices/OrderSlice'
 import { getAllCars } from '../../../store/Slices/CarsSlice'
 import { getCities } from '../../../store/Slices/CitySlice'
@@ -14,7 +14,7 @@ import { ICar } from '../../Interfaces/CarInterface'
 import { ICity } from '../../Interfaces/CityInterface'
 import { IOrderStatus } from '../../Interfaces/OrderInterface'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
-import { IOrderParamsInterface } from '../../Interfaces/OrderParamsInterface'
+import { IOrderParamsInterface } from '../../Interfaces/ParamsInterface'
 import cl from './OrderTabHeader.module.scss'
 
 const OrderTabHeader: React.FC = () => {
@@ -44,7 +44,7 @@ const OrderTabHeader: React.FC = () => {
             cityId: city ? city.id : undefined,
             orderStatusId: status ? status.id : undefined,
         }
-        dispatch(setFilterOrders(params))
+        dispatch(setOrderFilter(params))
         dispatch(getOrders(params))
     }
 
@@ -52,7 +52,7 @@ const OrderTabHeader: React.FC = () => {
         setCar({} as ICar)
         setCity({} as ICity)
         setStatus({} as IOrderStatus)
-        dispatch(resetFilterOrders())
+        dispatch(resetOrderFilter())
         dispatch(getOrders({ page: 1, limit: 5 }))
     }
 
@@ -61,9 +61,6 @@ const OrderTabHeader: React.FC = () => {
         dispatch(getCities())
         dispatch(getAllCars())
     }, [])
-    console.log('CARS====>', allCars)
-    console.log('CITY====>', cities)
-    console.log('STATUS==>', orderStatuses)
 
     return (
         <div className={cl.filters}>

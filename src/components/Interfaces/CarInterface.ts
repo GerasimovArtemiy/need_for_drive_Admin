@@ -23,6 +23,11 @@ export interface ICar {
     colors: string[]
     id: string
 }
+export interface ICarsResponse {
+    data: ICar[]
+    count: number
+    fields: any
+}
 export interface ICategoryResponse {
     data: ICategory[]
 }
