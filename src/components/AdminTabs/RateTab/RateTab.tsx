@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import AdminTabsHeaders from '../../AdminTabsHeaders/AdminTabsHeaders'
 import cl from './RateTab.module.scss'
 import RateItem from './RateItem/RateItem'
+import MyLoader from '../../Loader/MyLoader'
 
 const RateTab: React.FC = () => {
     const dispatch = useAppDispatch()
-    const { allRates } = useAppSelector((state) => state.rate)
+    const { allRates, status } = useAppSelector((state) => state.rate)
 
     useEffect(() => {
         dispatch(getAllRates())
@@ -17,9 +18,11 @@ const RateTab: React.FC = () => {
             <h2 className={cl.rateTab_title}>Города</h2>
             <div className={cl.rateTab_container}>
                 <AdminTabsHeaders />
-                {allRates.map((rate) => (
-                    <RateItem key={rate.id} rate={rate} />
-                ))}
+                {status === 'resolved' ? (
+                    allRates.map((rate) => <RateItem key={rate.id} rate={rate} />)
+                ) : (
+                    <MyLoader />
+                )}
             </div>
         </section>
     )
