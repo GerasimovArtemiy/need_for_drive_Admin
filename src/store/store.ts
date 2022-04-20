@@ -4,6 +4,7 @@ import ModalReducer from './Slices/ModalSlice'
 import CarReducer from './Slices/CarsSlice'
 import OrderReducer from './Slices/OrderSlice'
 import CityReducer from './Slices/CitySlice'
+import RateReducer from './Slices/RateSlice'
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         cars: CarReducer,
         order: OrderReducer,
         city: CityReducer,
+        rate: RateReducer,
     },
 })
 

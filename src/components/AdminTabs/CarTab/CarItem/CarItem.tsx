@@ -24,11 +24,11 @@ const CarItem: React.FC<ICarItemProps> = ({ car }) => {
                     </li>
                     <li className={cl.descr_item}>
                         Цена от:
-                        <span>{car.priceMin}</span>
+                        <span>{car.priceMin}₽</span>
                     </li>
                     <li className={cl.descr_item}>
                         Цена до:
-                        <span>{car.priceMax}</span>
+                        <span>{car.priceMax}₽</span>
                     </li>
                 </ul>
                 <ul className={cl.descr_container}>

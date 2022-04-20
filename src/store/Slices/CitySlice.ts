@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import CityService from '../../API/cityService'
+import CityAndRateService from '../../API/cityAndRateService'
 import { ICity, ICitiesResponse } from '../../components/Interfaces/CityInterface'
 
 interface ICitiesState {
@@ -17,7 +17,7 @@ const initialState: ICitiesState = {
 }
 
 export const getCities = createAsyncThunk('city/getCities', async () => {
-    const response = await CityService.getCity()
+    const response = await CityAndRateService.getCity()
     return response.data
 })
 

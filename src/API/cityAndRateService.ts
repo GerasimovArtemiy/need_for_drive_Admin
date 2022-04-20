@@ -11,8 +11,12 @@ const responseAPI = axios.create({
     },
 })
 
-export default class CityService {
+export default class CityAndRateService {
     static async getCity(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.cities)
+    }
+
+    static async getRates(): Promise<AxiosResponse> {
+        return responseAPI.get(apiPath.rate)
     }
 }
