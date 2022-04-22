@@ -15,6 +15,7 @@ import { ICity } from '../../Interfaces/CityInterface'
 import { IOrderStatus } from '../../Interfaces/OrderInterface'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
 import { IOrderParamsInterface } from '../../Interfaces/ParamsInterface'
+import { ISelectFilterProps } from '../../UI/SelectFilter/SelectFilter'
 import cl from './OrderTabHeader.module.scss'
 
 const OrderTabHeader: React.FC = () => {
@@ -62,30 +63,43 @@ const OrderTabHeader: React.FC = () => {
         dispatch(getAllCars())
     }, [])
 
+    const orderFilters: ISelectFilterProps[] = [
+        {
+            name: 'status',
+            placeholder: 'Статус',
+            items: orderStatuses.data,
+            valueState: status?.name,
+            onChange: handleChange,
+        },
+        {
+            name: 'cars',
+            placeholder: 'Модель',
+            items: allCars.data,
+            valueState: car?.name,
+            onChange: handleChange,
+        },
+        {
+            name: 'city',
+            placeholder: 'Город',
+            items: cities.items.data,
+            valueState: city?.name,
+            onChange: handleChange,
+        },
+    ]
+
     return (
         <div className={cl.filters}>
             <div className={cl.filters_container}>
-                <SelectFilter
-                    name="cars"
-                    placeholder="Статус"
-                    items={orderStatuses.data}
-                    valueState={status?.name}
-                    onChange={handleChange}
-                />
-                <SelectFilter
-                    name="cars"
-                    placeholder="Модель"
-                    items={allCars.data}
-                    valueState={car?.name}
-                    onChange={handleChange}
-                />
-                <SelectFilter
-                    name="city"
-                    placeholder="Город"
-                    items={cities.items.data}
-                    valueState={city?.name}
-                    onChange={handleChange}
-                />
+                {orderFilters.map(({ name, placeholder, items, valueState, onChange }) => (
+                    <SelectFilter
+                        key={name}
+                        name={name}
+                        placeholder={placeholder}
+                        items={items}
+                        valueState={valueState}
+                        onChange={onChange}
+                    />
+                ))}
             </div>
             <div className={cl.filters_btns}>
                 <Button

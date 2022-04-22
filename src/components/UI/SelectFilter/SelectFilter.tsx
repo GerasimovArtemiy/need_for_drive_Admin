@@ -4,7 +4,7 @@ import { DropdownIndicator } from './SelectIcon'
 import cl from './SelectFilter.module.scss'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
 
-interface ISelectFilterProps {
+export interface ISelectFilterProps {
     onChange?: (item: ISelectOption) => void
     valueState: string
     placeholder: string
