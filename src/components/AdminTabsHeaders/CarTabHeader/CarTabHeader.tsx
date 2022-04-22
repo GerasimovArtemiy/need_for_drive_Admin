@@ -26,7 +26,7 @@ const CarTabHeader: React.FC = () => {
     const showFiltredCars = (): void => {
         const params: ICarParamsInterface = {
             page: 1,
-            limit: 5,
+            limit: 4,
             categoryId: categories ? categories.id : undefined,
         }
         dispatch(setCarFilter(params))
@@ -36,7 +36,7 @@ const CarTabHeader: React.FC = () => {
     const clearFilter = (): void => {
         setCategories({} as ICategory)
         dispatch(resetCarFilter())
-        dispatch(getCarsByParams({ page: 1, limit: 5 }))
+        dispatch(getCarsByParams({ page: 1, limit: 4 }))
     }
     useEffect(() => {
         dispatch(getCategory())

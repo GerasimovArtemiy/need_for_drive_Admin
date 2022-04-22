@@ -39,7 +39,7 @@ const OrderTabHeader: React.FC = () => {
     const showFilterOrders = (): void => {
         const params: IOrderParamsInterface = {
             page: 0,
-            limit: 6,
+            limit: 4,
             carId: car ? car.id : undefined,
             cityId: city ? city.id : undefined,
             orderStatusId: status ? status.id : undefined,
@@ -53,7 +53,7 @@ const OrderTabHeader: React.FC = () => {
         setCity({} as ICity)
         setStatus({} as IOrderStatus)
         dispatch(resetOrderFilter())
-        dispatch(getOrders({ page: 1, limit: 5 }))
+        dispatch(getOrders({ page: 1, limit: 4 }))
     }
 
     useEffect(() => {
