@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SelectFilter from '../../UI/SelectFilter/SelectFilter'
+import SelectFilter, { ISelectFilterProps } from '../../UI/SelectFilter/SelectFilter'
 import Button from '../../UI/Buttons/Button'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import {
@@ -15,7 +15,6 @@ import { ICity } from '../../Interfaces/CityInterface'
 import { IOrderStatus } from '../../Interfaces/OrderInterface'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
 import { IOrderParamsInterface } from '../../Interfaces/ParamsInterface'
-import { ISelectFilterProps } from '../../UI/SelectFilter/SelectFilter'
 import cl from './OrderTabHeader.module.scss'
 
 const OrderTabHeader: React.FC = () => {

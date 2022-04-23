@@ -9,9 +9,12 @@
     border: 1px solid $color-light-gray;
     box-shadow: 4px 2px 5px rgb(226, 226, 226);
     margin: 0 20px 12px;
-    padding: 10px 22px;
+    padding: 8px 22px;
     min-height: fit-content;
     border-radius: 6px;
+    &:last-of-type {
+        margin-bottom: 20px;
+    }
     &_container {
         display: flex;
         justify-content: space-between;
@@ -44,7 +47,7 @@
         }
     }
     &_item {
-        color: $color-dark-blue;
+        font-size: 14px;
 
         @media screen and (max-width: 766px) {
             margin: 8px;
@@ -53,17 +56,25 @@
             margin: 3px;
         }
     }
+    &_title {
+        display: none;
+
+        @media screen and (max-width: 750px) {
+            display: inline;
+            font-family: $bold;
+            color: $color-black;
+        }
+    }
     &_subtitle {
-        font-family: $bold;
-        color: $color-black;
+        color: $color-dark-blue;
     }
 }
 .button {
-    border: 1px solid $color-dark-gray;
+    border: 1px solid #becad6;
     cursor: pointer;
     background: none;
     color: #5a6169;
-    padding: 8px;
+    padding: 6px 10px;
     font-size: 14px;
     line-height: 15px;
     margin: 0;
@@ -88,11 +99,6 @@
 
         @media screen and (max-width: 766px) {
             margin: 0 5px;
-        }
-    }
-    & span {
-        @media screen and (max-width: 766px) {
-            // display: none;
         }
     }
 }

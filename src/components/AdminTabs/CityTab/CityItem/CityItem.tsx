@@ -14,7 +14,6 @@ const CityItem: React.FC<ICityItemProps> = ({ city }) => {
             <div className={cl.city_container}>
                 <ul className={cl.descr_container}>
                     <li className={cl.descr_item}>
-                        <span className={cl.descr_title}>Город:</span>{' '}
                         <span className={cl.descr_city}>{city ? city.name : 'Не известно'}</span>
                     </li>
                 </ul>

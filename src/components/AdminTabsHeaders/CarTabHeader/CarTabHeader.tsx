@@ -11,7 +11,9 @@ import { ICategory } from '../../Interfaces/CarInterface'
 import { ICarParamsInterface } from '../../Interfaces/ParamsInterface'
 import SelectFilter from '../../UI/SelectFilter/SelectFilter'
 import Button from '../../UI/Buttons/Button'
-import cl from '../OrderTabHeader/OrderTabHeader.module.scss'
+import cl from './CarTabHeader.module.scss'
+import TitlesItems from '../TitlesItems/TitlesItems'
+import { titlesItems } from './constants'
 
 const CarTabHeader: React.FC = () => {
     const [categories, setCategories] = useState<ICategory>({} as ICategory)
@@ -43,31 +45,36 @@ const CarTabHeader: React.FC = () => {
     }, [dispatch])
 
     return (
-        <div className={cl.filters}>
-            <div className={cl.filters_container}>
-                <SelectFilter
-                    name="category"
-                    placeholder="Категории"
-                    items={category.data}
-                    valueState={categories?.name}
-                    onChange={handleChange}
-                />
+        <>
+            <div className={cl.filters}>
+                <div className={cl.filters_container}>
+                    <SelectFilter
+                        name="category"
+                        placeholder="Категории"
+                        items={category.data}
+                        valueState={categories?.name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className={cl.filters_btns}>
+                    <Button
+                        type="button"
+                        title="Сбросить"
+                        className={cl.btn_reset}
+                        onClick={clearFilter}
+                    />
+                    <Button
+                        type="button"
+                        title="Применить"
+                        className={cl.btn}
+                        onClick={showFiltredCars}
+                    />
+                </div>
             </div>
-            <div className={cl.filters_btns}>
-                <Button
-                    type="button"
-                    title="Сбросить"
-                    className={cl.btn_reset}
-                    onClick={clearFilter}
-                />
-                <Button
-                    type="button"
-                    title="Применить"
-                    className={cl.btn}
-                    onClick={showFiltredCars}
-                />
+            <div className={cl.titlesItems_container}>
+                <TitlesItems titles={titlesItems} />
             </div>
-        </div>
+        </>
     )
 }
 

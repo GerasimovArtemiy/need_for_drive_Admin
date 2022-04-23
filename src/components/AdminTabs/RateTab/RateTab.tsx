@@ -25,7 +25,7 @@ const RateTab: React.FC = () => {
 
     return (
         <section className={cl.rateTab}>
-            <h2 className={cl.rateTab_title}>Города</h2>
+            <h2 className={cl.rateTab_title}>Тарифы</h2>
             <div className={cl.rateTab_container}>
                 <AdminTabsHeaders />
                 {status === 'resolved' ? showRates() : <MyLoader />}

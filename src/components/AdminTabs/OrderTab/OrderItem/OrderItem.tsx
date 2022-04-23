@@ -60,7 +60,10 @@ const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
                     <CheckboxGroup checkboxes={checkboxItems} />
                 </div>
 
-                <div className={cl.price}> {order.price ? `${order.price}₽` : '0_o'}</div>
+                <div className={cl.price}>
+                    {' '}
+                    <span> {order.price ? `${order.price}₽` : '0_o'}</span>
+                </div>
                 <OrderItemButtons />
             </div>
         </div>

@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     padding: 15px 20px;
-    margin-bottom: 30px;
     font-family: $light;
     border-bottom: 1px solid $color-light-gray;
 
@@ -19,15 +18,22 @@
         color: $color-dark-blue;
         border: 1px solid $color-dark-gray;
         border-radius: 6px;
+        font-size: 13px;
+        transition: 0.1s;
 
         @media screen and (max-width: 500px) {
-            width: 60%;
+            width: 50%;
+        }
+        &:focus {
+            border: 1px solid white;
+            box-shadow: 0px 0px 4px $color-blue;
+            font-size: 14px;
         }
     }
     &_button {
         padding: 9px 15px;
         width: 115px;
-        height: 38px;
+        height: 36px;
         color: white;
         font-size: 13px;
         line-height: 13px;
@@ -45,6 +51,23 @@
         }
         &:active {
             background: #0161c7;
+        }
+    }
+}
+.titlesItems {
+    &_container {
+        margin-top: -1px;
+        font-family: $light;
+        box-sizing: border-box;
+        box-shadow: 0px 10px 3px -5px #abd4ff;
+        border: 1px solid $color-light-gray;
+        border-top: 1px solid $color-light-gray;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding: 10px;
+        margin-bottom: 15px;
+        & div {
+            margin-left: 20px;
         }
     }
 }

@@ -23,7 +23,7 @@
     }
     &_imgContainer {
         width: 150px;
-        height: 100px;
+        height: 90px;
         overflow: hidden;
         padding: 5px;
         box-sizing: border-box;
@@ -62,16 +62,31 @@
         }
     }
     &_item {
-        font-size: 18px;
-        color: $color-black;
-        font-family: $bold;
+        font-size: 14px;
 
         @media screen and (max-width: 750px) {
             margin-bottom: 5px;
         }
-        & span {
+        &_title {
+            display: none;
+            @media screen and (max-width: 750px) {
+                display: inline;
+                color: $color-black;
+                font-family: $bold;
+            }
+        }
+        &_subtitle {
             color: $color-dark-blue;
             font-family: $light;
+            & span {
+                @media screen and (max-width: 750px) {
+                    display: none;
+                }
+            }
+        }
+        &_price {
+            color: $color-black;
+            font-family: $bold;
         }
     }
 }
