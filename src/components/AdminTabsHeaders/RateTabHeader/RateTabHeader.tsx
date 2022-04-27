@@ -8,13 +8,9 @@ const RateTabHeader: React.FC = () => {
     return (
         <>
             <div className={cl.addRate}>
-                <input
-                    className={cl.addRate_input}
-                    type={'text'}
-                    placeholder="Название тарифа..."
-                />
-                <input className={cl.addRate_input} type={'text'} placeholder="Время действия..." />
-                <input className={cl.addRate_input} type={'text'} placeholder="Цена тарифа..." />
+                <input className={cl.addRate_input} type="text" placeholder="Название тарифа..." />
+                <input className={cl.addRate_input} type="text" placeholder="Время действия..." />
+                <input className={cl.addRate_input} type="text" placeholder="Цена тарифа..." />
                 <Button type={'button'} title="Добавить" className={cl.addRate_button} />
             </div>
             <div className={cl.titlesItems_container}>

@@ -18,6 +18,10 @@ export default class CityAndRateService {
         return responseAPI.get(apiPath.cities)
     }
 
+    static async postCity(city: string): Promise<AxiosResponse> {
+        return responseAPI.post(apiPath.cities, { name: city })
+    }
+
     static async deleteCity(cityId: string) {
         return responseAPI.delete(`${apiPath.cities}/${cityId}`)
     }
