@@ -1,7 +1,9 @@
 import React from 'react'
-import { IRate } from '../../../Interfaces/RateInterface'
 import Button from '../../../UI/Buttons/Button'
+import { useAppDispatch } from '../../../../hooks/redux-hooks'
+import { deleteRateById, getAllRates } from '../../../../store/Slices/RateSlice'
 import { CancelButton } from '../../OrderTab/OrderItem/OrderItemButtons/ButtonIcons'
+import { IRate } from '../../../Interfaces/RateInterface'
 import cl from './RateItem.module.scss'
 
 interface IrateItemProps {
@@ -9,6 +11,11 @@ interface IrateItemProps {
 }
 
 const RateItem: React.FC<IrateItemProps> = ({ rate }) => {
+    const dispatch = useAppDispatch()
+    const deleteRate = async (rateId: string) => {
+        await dispatch(deleteRateById(rateId))
+        dispatch(getAllRates())
+    }
     return (
         <div className={cl.rate}>
             <div className={cl.rate_container}>
@@ -34,7 +41,12 @@ const RateItem: React.FC<IrateItemProps> = ({ rate }) => {
                         <span className={cl.descr_subtitle}>{rate ? `${rate.price}₽` : 'o_0'}</span>
                     </li>
                 </ul>
-                <Button type={'button'} className={cl.button} title={'Удалить'}>
+                <Button
+                    type={'button'}
+                    className={cl.button}
+                    title={'Удалить'}
+                    onClick={() => deleteRate(rate.id)}
+                >
                     <div className={cl.button_img}>{CancelButton}</div>
                 </Button>
             </div>

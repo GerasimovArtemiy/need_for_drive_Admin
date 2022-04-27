@@ -2,12 +2,14 @@ import axios, { AxiosResponse } from 'axios'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
 
+const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({
     baseURL: BASE_URL,
     responseType: 'json',
     headers: {
         'X-Api-Factory-Application-Id': API_KEY || '',
         'Access-Control-Allow-Credentials': true,
+        Authorization: `Bearer ${bearerToken}`,
     },
 })
 
@@ -16,7 +18,15 @@ export default class CityAndRateService {
         return responseAPI.get(apiPath.cities)
     }
 
+    static async deleteCity(cityId: string) {
+        return responseAPI.delete(`${apiPath.cities}/${cityId}`)
+    }
+
     static async getRates(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.rate)
+    }
+
+    static async deleteRate(rateId: string) {
+        return responseAPI.delete(`${apiPath.rate}/${rateId}`)
     }
 }

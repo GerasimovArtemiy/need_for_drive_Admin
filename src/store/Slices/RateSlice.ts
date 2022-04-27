@@ -16,6 +16,9 @@ export const getAllRates = createAsyncThunk('rate/getAllRates', async () => {
     const response = await CityAndRateService.getRates()
     return response.data.data
 })
+export const deleteRateById = createAsyncThunk('rate/deleteRateById', async (rateId: string) => {
+    await CityAndRateService.deleteRate(rateId)
+})
 
 const RateSlice = createSlice({
     name: 'rate',
