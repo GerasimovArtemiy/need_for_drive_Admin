@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import SelectFilter, { ISelectFilterProps } from '../../UI/SelectFilter/SelectFilter'
+import SelectFilter from '../../UI/SelectFilter/SelectFilter'
 import Button from '../../UI/Buttons/Button'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import {
@@ -62,41 +62,38 @@ const OrderTabHeader: React.FC = () => {
         dispatch(getAllCars())
     }, [])
 
-    const orderFilters: ISelectFilterProps[] = [
+    const orderFilters = [
         {
             name: 'status',
             placeholder: 'Статус',
             items: orderStatuses.data,
             valueState: status?.name,
-            onChange: handleChange,
         },
         {
-            name: 'cars',
+            name: 'car',
             placeholder: 'Модель',
             items: allCars.data,
             valueState: car?.name,
-            onChange: handleChange,
         },
         {
             name: 'city',
             placeholder: 'Город',
             items: cities.items.data,
             valueState: city?.name,
-            onChange: handleChange,
         },
     ]
 
     return (
         <div className={cl.filters}>
             <div className={cl.filters_container}>
-                {orderFilters.map(({ name, placeholder, items, valueState, onChange }) => (
+                {orderFilters.map(({ name, placeholder, items, valueState }) => (
                     <SelectFilter
                         key={name}
                         name={name}
                         placeholder={placeholder}
                         items={items}
                         valueState={valueState}
-                        onChange={onChange}
+                        onChange={handleChange}
                     />
                 ))}
             </div>
