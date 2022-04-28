@@ -31,7 +31,6 @@ const RateTabHeader: React.FC = () => {
                     price: +rateValues.price,
                 })
             )
-            // setIsEmptyValues(false)
             setRateValues({ ...rateValues, name: '', unit: '', price: '' })
             dispatch(getAllRates())
         } else {
@@ -41,6 +40,7 @@ const RateTabHeader: React.FC = () => {
     useMemo(() => {
         setIsEmptyValues(false)
     }, [rateValues])
+
     return (
         <>
             <div className={cl.addRate}>
