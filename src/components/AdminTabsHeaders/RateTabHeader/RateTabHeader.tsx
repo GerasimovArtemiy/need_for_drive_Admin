@@ -23,10 +23,8 @@ const RateTabHeader: React.FC = () => {
     const addRate = async () => {
         await dispatch(
             postRate({
-                rateTypeId: {
-                    name: rateValues.name,
-                    unit: rateValues.unit,
-                },
+                name: rateValues.name,
+                unit: rateValues.unit,
                 price: +rateValues.price,
             })
         )

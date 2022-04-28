@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
-import { INewRate } from '../components/Interfaces/RateInterface'
+import { INewRateRequest, INewRateType } from '../components/Interfaces/RateInterface'
 
 const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({
@@ -18,11 +18,9 @@ export default class CityAndRateService {
     static async getCity(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.cities)
     }
-
     static async postCity(city: string): Promise<AxiosResponse> {
         return responseAPI.post(apiPath.cities, { name: city })
     }
-
     static async deleteCity(cityId: string) {
         return responseAPI.delete(`${apiPath.cities}/${cityId}`)
     }
@@ -30,12 +28,23 @@ export default class CityAndRateService {
     static async getRates(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.rate)
     }
-
-    static async postRate(rate: INewRate) {
+    static async postRate(rate: INewRateRequest): Promise<AxiosResponse> {
         return responseAPI.post(apiPath.rate, { ...rate })
     }
-
-    static async deleteRate(rateId: string) {
+    static async deleteRate(rateId: string): Promise<AxiosResponse> {
         return responseAPI.delete(`${apiPath.rate}/${rateId}`)
+    }
+
+    static async getRateType(): Promise<AxiosResponse> {
+        return responseAPI.get(apiPath.rateType)
+    }
+    static async getRateTypeByName(name: string): Promise<AxiosResponse> {
+        return responseAPI.get(`${apiPath.rateType}?name=${name}`)
+    }
+    static async postRateType(rateType: INewRateType): Promise<AxiosResponse> {
+        return responseAPI.post(apiPath.rateType, { ...rateType })
+    }
+    static async deleteRateType(rateType: string): Promise<AxiosResponse> {
+        return responseAPI.delete(`${apiPath.rateType}/${rateType}`)
     }
 }

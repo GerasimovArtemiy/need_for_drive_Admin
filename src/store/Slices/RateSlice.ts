@@ -17,11 +17,26 @@ export const getAllRates = createAsyncThunk('rate/getAllRates', async () => {
     return response.data.data
 })
 export const postRate = createAsyncThunk('rate/postRate', async (rate: INewRate) => {
-    await CityAndRateService.postRate(rate)
-    console.log(rate)
+    await CityAndRateService.postRateType({ name: rate.name, unit: rate.unit })
+    const rateType = await CityAndRateService.getRateTypeByName(rate.name)
+    const rateTypeId = await rateType.data.data[0].id
+    await CityAndRateService.postRate({
+        price: +rate.price,
+        rateTypeId: { id: rateTypeId, name: rate.name, unit: rate.unit },
+    })
 })
 export const deleteRateById = createAsyncThunk('rate/deleteRateById', async (rateId: string) => {
     await CityAndRateService.deleteRate(rateId)
+})
+export const deleteRateTypeById = createAsyncThunk(
+    'rate/deleteRateTypeById',
+    async (rateType: string) => {
+        await CityAndRateService.deleteRateType(rateType)
+    }
+)
+export const getRateType = createAsyncThunk('rate/getRateType', async () => {
+    const response = await CityAndRateService.getRateType()
+    console.log(response.data.data)
 })
 
 const RateSlice = createSlice({

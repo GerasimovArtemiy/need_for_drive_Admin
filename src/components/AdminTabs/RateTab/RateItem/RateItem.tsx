@@ -1,51 +1,38 @@
 import React from 'react'
 import Button from '../../../UI/Buttons/Button'
+import ItemDescr from './ItemDescr'
 import { useAppDispatch } from '../../../../hooks/redux-hooks'
-import { deleteRateById, getAllRates } from '../../../../store/Slices/RateSlice'
-import { CancelButton } from '../../OrderTab/OrderItem/OrderItemButtons/ButtonIcons'
+import { deleteRateById, deleteRateTypeById, getAllRates } from '../../../../store/Slices/RateSlice'
 import { IRate } from '../../../Interfaces/RateInterface'
+import { CancelButton } from '../../OrderTab/OrderItem/OrderItemButtons/ButtonIcons'
 import cl from './RateItem.module.scss'
 
 interface IrateItemProps {
     rate: IRate
 }
+interface IDeleteRateById {
+    rateId: string
+    rateTypeId: string
+}
 
 const RateItem: React.FC<IrateItemProps> = ({ rate }) => {
     const dispatch = useAppDispatch()
-    const deleteRate = async (rateId: string) => {
-        await dispatch(deleteRateById(rateId))
+    const deleteRate = async (id: IDeleteRateById) => {
+        await dispatch(deleteRateById(id.rateId))
+        await dispatch(deleteRateTypeById(id.rateTypeId))
         dispatch(getAllRates())
     }
     return (
         <div className={cl.rate}>
             <div className={cl.rate_container}>
-                <ul className={cl.descr_container}>
-                    <li className={cl.descr_item}>
-                        <span className={cl.descr_title}>Тариф: </span>{' '}
-                        <span className={cl.descr_subtitle}>
-                            {rate.rateTypeId ? rate.rateTypeId.name : 'Не известно'}
-                        </span>
-                    </li>
-                </ul>
-                <ul className={cl.descr_container}>
-                    <li className={cl.descr_item}>
-                        <span className={cl.descr_title}>Время: </span>{' '}
-                        <span className={cl.descr_subtitle}>
-                            {rate.rateTypeId ? rate.rateTypeId.unit : 'Не известно'}
-                        </span>
-                    </li>
-                </ul>
-                <ul className={cl.descr_container}>
-                    <li className={cl.descr_item}>
-                        <span className={cl.descr_title}>Цена: </span>{' '}
-                        <span className={cl.descr_subtitle}>{rate ? `${rate.price}₽` : 'o_0'}</span>
-                    </li>
-                </ul>
+                <ItemDescr title="Тариф" rateItem={rate.rateTypeId?.name} />
+                <ItemDescr title="Время" rateItem={rate.rateTypeId?.unit} />
+                <ItemDescr title="Цена" rateItem={rate?.price} />
                 <Button
                     type={'button'}
                     className={cl.button}
                     title={'Удалить'}
-                    onClick={() => deleteRate(rate.id)}
+                    onClick={() => deleteRate({ rateId: rate.id, rateTypeId: rate.rateTypeId.id })}
                 >
                     <div className={cl.button_img}>{CancelButton}</div>
                 </Button>
