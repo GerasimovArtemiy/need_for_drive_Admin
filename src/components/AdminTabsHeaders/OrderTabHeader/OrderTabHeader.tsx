@@ -15,43 +15,67 @@ import { ICity } from '../../Interfaces/CityInterface'
 import { IOrderStatus } from '../../Interfaces/OrderInterface'
 import { ISelectOption } from '../../Interfaces/SelectOptionInterface'
 import { IOrderParamsInterface } from '../../Interfaces/ParamsInterface'
+import { orderFilters } from './constants'
 import cl from './OrderTabHeader.module.scss'
 
+interface IFilterState {
+    car: ICar
+    city: ICity
+    status: IOrderStatus
+    [index: string]: ICar | ICity | IOrderStatus
+}
+interface IMapState {
+    car: ICar[]
+    city: ICity[]
+    status: IOrderStatus[]
+    [index: string]: ICar[] | ICity[] | IOrderStatus[]
+}
+
 const OrderTabHeader: React.FC = () => {
-    const [car, setCar] = useState<ICar>({} as ICar)
-    const [city, setCity] = useState<ICity>({} as ICity)
-    const [status, setStatus] = useState<IOrderStatus>({} as IOrderStatus)
+    const [filter, setFilter] = useState<IFilterState>({
+        car: {} as ICar,
+        city: {} as ICity,
+        status: {} as IOrderStatus,
+    })
 
     const dispatch = useAppDispatch()
     const { allCars } = useAppSelector((state) => state.cars)
     const { cities } = useAppSelector((state) => state.city)
     const { orderStatuses } = useAppSelector((state) => state.order)
 
+    const mapState: IMapState = {
+        status: orderStatuses.data,
+        car: allCars.data,
+        city: cities.items.data,
+    }
+
     const handleChange = (item: ISelectOption) => {
         const selectCar = allCars.data.find((car) => car.name === item.value)!
         const selectCity = cities.items.data.find((city) => city.name === item.value)!
         const selectStatus = orderStatuses.data.find((status) => status.name === item.value)!
-        selectCar && setCar(selectCar)
-        selectCity && setCity(selectCity)
-        selectStatus && setStatus(selectStatus)
+        selectCar && setFilter({ ...filter, car: selectCar })
+        selectCity && setFilter({ ...filter, city: selectCity })
+        selectStatus && setFilter({ ...filter, status: selectStatus })
     }
 
     const showFilterOrders = (): void => {
         const params: IOrderParamsInterface = {
             page: 0,
             limit: 4,
-            carId: car ? car.id : undefined,
-            cityId: city ? city.id : undefined,
-            orderStatusId: status ? status.id : undefined,
+            carId: filter.car ? filter.car.id : undefined,
+            cityId: filter.city ? filter.city.id : undefined,
+            orderStatusId: filter.status ? filter.status.id : undefined,
         }
         dispatch(setOrderFilter(params))
         dispatch(getOrders(params))
     }
 
     const clearFilter = () => {
-        setCar({} as ICar)
-        setCity({} as ICity)
-        setStatus({} as IOrderStatus)
+        setFilter({
+            car: {} as ICar,
+            city: {} as ICity,
+            status: {} as IOrderStatus,
+        })
         dispatch(resetOrderFilter())
         dispatch(getOrders({ page: 1, limit: 4 }))
     }
@@ -62,37 +86,16 @@ const OrderTabHeader: React.FC = () => {
         dispatch(getAllCars())
     }, [])
 
-    const orderFilters = [
-        {
-            name: 'status',
-            placeholder: 'Статус',
-            items: orderStatuses.data,
-            valueState: status?.name,
-        },
-        {
-            name: 'car',
-            placeholder: 'Модель',
-            items: allCars.data,
-            valueState: car?.name,
-        },
-        {
-            name: 'city',
-            placeholder: 'Город',
-            items: cities.items.data,
-            valueState: city?.name,
-        },
-    ]
-
     return (
         <div className={cl.filters}>
             <div className={cl.filters_container}>
-                {orderFilters.map(({ name, placeholder, items, valueState }) => (
+                {orderFilters.map(({ name, placeholder }) => (
                     <SelectFilter
                         key={name}
                         name={name}
                         placeholder={placeholder}
-                        items={items}
-                        valueState={valueState}
+                        items={mapState[name]}
+                        valueState={filter[name]?.name}
                         onChange={handleChange}
                     />
                 ))}
