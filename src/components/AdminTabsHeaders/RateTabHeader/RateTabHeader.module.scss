@@ -59,6 +59,17 @@
             background: #0161c7;
         }
     }
+    &_err {
+        color: red;
+        padding: 5px 30px;
+        font-size: 14px;
+        transition: 0.1s;
+
+        @media screen and (max-width: 600px) {
+            margin-top: -15px;
+            padding: 10px 30px;
+        }
+    }
 }
 .titlesItems {
     &_container {

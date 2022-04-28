@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useMemo } from 'react'
 import Button from '../../UI/Buttons/Button'
 import TitlesItems from '../TitlesItems/TitlesItems'
 import { useAppDispatch } from '../../../hooks/redux-hooks'
@@ -15,23 +15,32 @@ interface IRateValueState {
 
 const RateTabHeader: React.FC = () => {
     const [rateValues, setRateValues] = useState<IRateValueState>({ name: '', unit: '', price: '' })
+    const [isEmptyValues, setIsEmptyValues] = useState<boolean>(false)
 
     const dispatch = useAppDispatch()
     const changeValue = (e: ChangeEvent<HTMLInputElement>) => {
         setRateValues({ ...rateValues, [e.currentTarget.name]: e.currentTarget.value })
     }
-    const addRate = async () => {
-        await dispatch(
-            postRate({
-                name: rateValues.name,
-                unit: rateValues.unit,
-                price: +rateValues.price,
-            })
-        )
-        setRateValues({ ...rateValues, name: '', unit: '', price: '' })
-        dispatch(getAllRates())
-    }
 
+    const addRate = async () => {
+        if (rateValues.name && rateValues.price && rateValues.unit) {
+            await dispatch(
+                postRate({
+                    name: rateValues.name,
+                    unit: rateValues.unit,
+                    price: +rateValues.price,
+                })
+            )
+            // setIsEmptyValues(false)
+            setRateValues({ ...rateValues, name: '', unit: '', price: '' })
+            dispatch(getAllRates())
+        } else {
+            setIsEmptyValues(true)
+        }
+    }
+    useMemo(() => {
+        setIsEmptyValues(false)
+    }, [rateValues])
     return (
         <>
             <div className={cl.addRate}>
@@ -52,6 +61,9 @@ const RateTabHeader: React.FC = () => {
                     className={cl.addRate_button}
                     onClick={addRate}
                 />
+            </div>
+            <div className={isEmptyValues ? cl.addRate_err : null}>
+                {isEmptyValues ? 'Что бы добавить тариф, заполните все поля!' : null}{' '}
             </div>
             <div className={cl.titlesItems_container}>
                 <TitlesItems titles={titlesItems} />

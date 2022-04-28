@@ -32,7 +32,7 @@ const RateItem: React.FC<IrateItemProps> = ({ rate }) => {
                     type={'button'}
                     className={cl.button}
                     title={'Удалить'}
-                    onClick={() => deleteRate({ rateId: rate.id, rateTypeId: rate.rateTypeId.id })}
+                    onClick={() => deleteRate({ rateId: rate.id, rateTypeId: rate.rateTypeId?.id })}
                 >
                     <div className={cl.button_img}>{CancelButton}</div>
                 </Button>
