@@ -19,12 +19,14 @@ const CityTabHeader: React.FC = () => {
         setCityValue('')
         dispatch(getCities())
     }
+
     return (
         <>
             <div className={cl.addCity}>
                 <input
                     className={cl.addCity_input}
                     type="text"
+                    value={cityValue}
                     placeholder="Введите город..."
                     onChange={(e) => changeValue(e)}
                 />

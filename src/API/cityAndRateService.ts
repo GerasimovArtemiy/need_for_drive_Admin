@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
+import { INewRate } from '../components/Interfaces/RateInterface'
 
 const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({
@@ -28,6 +29,10 @@ export default class CityAndRateService {
 
     static async getRates(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.rate)
+    }
+
+    static async postRate(rate: INewRate) {
+        return responseAPI.post(apiPath.rate, { ...rate })
     }
 
     static async deleteRate(rateId: string) {

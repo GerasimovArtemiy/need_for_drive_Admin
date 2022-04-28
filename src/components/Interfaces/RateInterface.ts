@@ -7,3 +7,11 @@ export interface IRate {
     }
     id: string
 }
+
+export interface INewRate {
+    price: number
+    rateTypeId: {
+        unit: string
+        name: string
+    }
+}

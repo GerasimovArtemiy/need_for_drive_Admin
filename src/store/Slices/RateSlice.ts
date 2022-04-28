@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CityAndRateService from '../../API/cityAndRateService'
-import { IRate } from '../../components/Interfaces/RateInterface'
+import { IRate, INewRate } from '../../components/Interfaces/RateInterface'
 
 interface IRateState {
     allRates: IRate[]
@@ -15,6 +15,10 @@ const initialState: IRateState = {
 export const getAllRates = createAsyncThunk('rate/getAllRates', async () => {
     const response = await CityAndRateService.getRates()
     return response.data.data
+})
+export const postRate = createAsyncThunk('rate/postRate', async (rate: INewRate) => {
+    await CityAndRateService.postRate(rate)
+    console.log(rate)
 })
 export const deleteRateById = createAsyncThunk('rate/deleteRateById', async (rateId: string) => {
     await CityAndRateService.deleteRate(rateId)
