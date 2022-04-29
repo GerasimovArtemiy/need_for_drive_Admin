@@ -1,0 +1,92 @@
+@import '../../../../styles/variables.scss';
+
+.car {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-family: $light;
+    box-sizing: border-box;
+    margin: 0 auto 15px;
+    padding: 0 22px;
+    width: 100%;
+    min-height: fit-content;
+    border-radius: 6px;
+    &_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        @media screen and (max-width: 750px) {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+    &_imgContainer {
+        width: 150px;
+        height: 90px;
+        overflow: hidden;
+        padding: 5px;
+        box-sizing: border-box;
+
+        @media screen and (max-width: 750px) {
+            width: 300px;
+            height: 200px;
+        }
+        @media screen and (max-width: 450px) {
+            width: 150px;
+            height: 100px;
+        }
+    }
+    &_img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+.descr {
+    &_container {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        width: 25%;
+
+        @media screen and (max-width: 750px) {
+            width: auto;
+        }
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    &_item {
+        font-size: 14px;
+
+        @media screen and (max-width: 750px) {
+            margin-bottom: 5px;
+        }
+        &_title {
+            display: none;
+            @media screen and (max-width: 750px) {
+                display: inline;
+                color: $color-black;
+                font-family: $bold;
+            }
+        }
+        &_subtitle {
+            color: $color-dark-blue;
+            font-family: $light;
+            & span {
+                @media screen and (max-width: 750px) {
+                    display: none;
+                }
+            }
+        }
+        &_price {
+            color: $color-black;
+            font-family: $bold;
+        }
+    }
+}

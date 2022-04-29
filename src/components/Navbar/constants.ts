@@ -17,13 +17,13 @@ export const navbarItems: INavbarItems[] = [
     },
     {
         id: 1,
-        title: 'Карточка авто',
+        title: 'Автомобили',
         path: routerPath.carList,
-        img: pencil,
+        img: list,
     },
     {
         id: 2,
-        title: 'Список городов',
+        title: 'Города',
         path: routerPath.cityList,
         img: list,
     },

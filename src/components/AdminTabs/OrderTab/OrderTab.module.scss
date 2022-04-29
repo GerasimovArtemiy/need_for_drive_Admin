@@ -36,67 +36,12 @@
         overflow: visible;
     }
 }
-.filters {
+.paginationSection {
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $color-light-gray;
-    padding: 15px 22px;
-
-    @media screen and (max-width: 830px) {
-        padding: 15px 10px;
-    }
-    @media screen and (max-width: 740px) {
-        flex-direction: column;
-    }
-    &_container {
-        display: flex;
-        align-self: center;
-
-        @media screen and (max-width: 740px) {
-            width: 100%;
-        }
-    }
-    &_btns {
-        display: flex;
-
-        @media screen and (max-width: 830px) {
-            justify-content: center;
-        }
-    }
-}
-.btn {
-    padding: 9px 15px;
-    font-size: 12px;
-    line-height: 13px;
-    width: 105px;
-    height: 38px;
-    color: white;
-    background: $color-blue;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-
-    @media screen and (max-width: 740px) {
-        width: 50%;
-    }
-    &_reset {
-        @extend .btn;
-        margin: 0 10px 0 0;
-        background: #c4183c;
-    }
-}
-.pagination {
+    justify-content: center;
+    align-items: center;
     border-top: 1px solid $color-light-gray;
-    padding: 20px;
-    color: $color-blue;
-    text-align: center;
-    & span {
-        display: inline-block;
-        border: 1px solid $color-blue;
-        border-radius: 50%;
-        width: 18px;
-        color: white;
-        background: $color-blue;
-    }
+    width: 100%;
+    padding: 21px 0;
+    margin: 15px auto 0;
 }

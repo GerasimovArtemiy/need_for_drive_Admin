@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+
+.titlesItems {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+    margin: 0 auto 0 100px;
+    &_item {
+        display: flex;
+        align-items: center;
+        color: $color-dark-blue;
+        font-family: $bold;
+        font-size: 14px;
+    }
+}

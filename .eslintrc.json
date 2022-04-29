@@ -24,6 +24,8 @@
     },
     "plugins": ["react", "@typescript-eslint", "prettier"],
     "rules": {
+        "react-hooks/exhaustive-deps": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "react/prop-types": "off",
         "no-unused-vars": "off",
         "react/react-in-jsx-scope": "off",

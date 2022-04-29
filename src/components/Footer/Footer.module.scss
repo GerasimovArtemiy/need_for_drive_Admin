@@ -1,6 +1,7 @@
 @import '../../styles/variables';
 
 .footer {
+    font-family: $light;
     display: flex;
     &_container {
         width: 100%;

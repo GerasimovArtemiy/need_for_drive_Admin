@@ -33,6 +33,9 @@
     }
 }
 .descr {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin: 0;
     max-width: 260px;
     font-size: 13px;
@@ -54,8 +57,11 @@
     object-fit: cover;
     border-radius: 12px;
     &_container {
-        width: 140px;
-        height: 63px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 80px;
         overflow: hidden;
         padding: 5px;
         box-sizing: border-box;
@@ -63,6 +69,9 @@
 
         @media screen and (max-width: 1120px) {
             display: none;
+        }
+        & span {
+            display: block;
         }
     }
 }
@@ -73,5 +82,17 @@
 
     @media screen and (max-width: 670px) {
         margin-bottom: 12px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
+    @media screen and (max-width: 476px) {
+        display: block;
+        width: auto;
+    }
+}
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
