@@ -63,7 +63,7 @@ const CarItem: React.FC<ICarItemProps> = ({ car }) => {
                         </span>
                     </li>
                 </ul>
-                <CarItemButtons />
+                <CarItemButtons carId={car.id} />
             </div>
         </div>
     )

@@ -60,6 +60,9 @@ export const getCarsByParams = createAsyncThunk(
         return response.data
     }
 )
+export const deleteCar = createAsyncThunk('rate/deleteCar', async (carId: string) => {
+    await CarService.deleteCar(carId)
+})
 
 const CarsSlice = createSlice({
     name: 'cars',
