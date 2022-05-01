@@ -1,0 +1,61 @@
+@import '../../../../../styles/variables.scss';
+
+.fileInput {
+    &_label {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 8px;
+        color: $color-dark-blue;
+    }
+}
+.input {
+    color: $color-dark-blue;
+    align-self: center;
+    font-size: 12px;
+    width: 100%;
+    border: 0.5px solid #becad6;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 8px 11px 8.5px;
+    outline-style: none;
+    &_container {
+        display: flex;
+        width: 100%;
+    }
+    &_btn {
+        width: 90px;
+        font-size: 13px;
+        padding: 8px 4px;
+        color: white;
+        background: $color-blue;
+        border: none;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.85;
+        }
+        &:active {
+            background: #0161c7;
+        }
+    }
+    &[type='file'] {
+        cursor: pointer;
+    }
+    & .input[type='file']::-webkit-file-upload-button {
+        display: none;
+    }
+    &[type='file']::-ms-browse {
+        display: none;
+    }
+    &[type='file']::file-selector-button {
+        display: none;
+        visibility: hidden;
+    }
+}
+.error {
+    font-size: 13px;
+    color: red;
+    margin: 5px 0 0 10px;
+}

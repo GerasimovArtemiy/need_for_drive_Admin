@@ -16,6 +16,10 @@ interface ICarState {
         items: ICarsResponse
         status: string | null
     }
+    carById: {
+        selectCar: ICar
+        status: null | string
+    }
     filter: {
         params: ICarParamsInterface
         currentPage: number
@@ -39,6 +43,10 @@ const initialState: ICarState = {
         },
         status: null,
     },
+    carById: {
+        selectCar: {} as ICar,
+        status: null,
+    },
     filter: {
         params: {} as ICarParamsInterface,
         currentPage: 1,
@@ -60,6 +68,10 @@ export const getCarsByParams = createAsyncThunk(
         return response.data
     }
 )
+export const getCarById = createAsyncThunk('cars/getCarById', async (carId: string | undefined) => {
+    const response = await CarService.getCarById(carId)
+    return response.data.data
+})
 export const deleteCar = createAsyncThunk('rate/deleteCar', async (carId: string) => {
     await CarService.deleteCar(carId)
 })
@@ -132,6 +144,23 @@ const CarsSlice = createSlice({
         )
         builder.addCase(getCarsByParams.rejected, (state) => {
             state.carsByParams.status = 'rejected'
+        })
+
+        // =======================================================
+
+        builder.addCase(getCarById.pending, (state) => {
+            state.carById.status = 'loading'
+        })
+        builder.addCase(getCarById.fulfilled, (state, action: PayloadAction<ICar>) => {
+            if (action.payload) {
+                state.carById.selectCar = action.payload
+                state.carById.status = 'resolved'
+            } else {
+                state.carById.status = 'rejected'
+            }
+        })
+        builder.addCase(getCarById.rejected, (state) => {
+            state.carById.status = 'rejected'
         })
     },
 })

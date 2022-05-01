@@ -1,0 +1,71 @@
+@import '../../../../../styles/variables.scss';
+
+.input {
+    &_color {
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 15px;
+        & label {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: $color-dark-blue;
+        }
+        &_container {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        &_text {
+            font-size: 12px;
+            border: 1px solid #9eb1c4;
+            box-sizing: border-box;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding: 8px 11px 8px;
+            outline-style: none;
+            color: $color-dark-blue;
+            width: 100%;
+        }
+        &_btn {
+            border: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            color: #ffffff;
+            background: $color-blue;
+            font-size: 13px;
+            padding: 10px;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.85;
+            }
+            &:active {
+                background: #0161c7;
+            }
+        }
+        &_disabled {
+            border: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            color: #ffffff;
+            font-size: 13px;
+            padding: 10px;
+            background: $color-dark-gray;
+            cursor: auto;
+        }
+        &_items {
+            background: white;
+            box-sizing: border-box;
+            box-shadow: 0 1px 0 rgba(90, 97, 105, 0.11), 0 2px 4px rgba(90, 97, 105, 0.12),
+                0 5px 5px rgba(90, 97, 105, 0.06), 0 3.5px 35px rgba(90, 97, 105, 0.1);
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin: 2px 0;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            & span {
+                color: red;
+                cursor: pointer;
+            }
+        }
+    }
+}

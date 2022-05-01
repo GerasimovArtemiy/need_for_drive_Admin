@@ -5,13 +5,14 @@ interface IButtonProps {
     title: string
     className: string
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void
+    disabled?: boolean
 }
 
 const Button: React.FC<IButtonProps> = (props) => {
-    const { type, title, className, children, onClick } = props
+    const { type, title, className, children, onClick, disabled } = props
 
     return (
-        <button type={type} className={className} onClick={onClick}>
+        <button type={type} className={className} onClick={onClick} disabled={disabled}>
             {children} <span>{title}</span>
         </button>
     )

@@ -6,7 +6,9 @@ import {
     ChangeButton,
     CancelButton,
 } from '../../../OrderTab/OrderItem/OrderItemButtons/ButtonIcons'
+import { routerPath } from '../../../../../routes/routerPath'
 import cl from './CarItemButtons.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 interface ICarItemButtonsPRops {
     carId: string
@@ -14,8 +16,12 @@ interface ICarItemButtonsPRops {
 
 const CarItemButtons: React.FC<ICarItemButtonsPRops> = ({ carId }) => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const { filter } = useAppSelector((state) => state.cars)
 
+    const showEditCarPage = () => {
+        navigate(`${routerPath.carList}/${carId}`)
+    }
     const deleteCarById = async (selectedCar: string) => {
         await dispatch(deleteCar(selectedCar))
         await dispatch(getCarsByParams({ ...filter.params, page: filter.currentPage, limit: 4 }))
@@ -23,7 +29,12 @@ const CarItemButtons: React.FC<ICarItemButtonsPRops> = ({ carId }) => {
 
     return (
         <div className={cl.button_container}>
-            <Button type="button" className={cl.button} title="Изменить">
+            <Button
+                type="button"
+                className={cl.button}
+                title="Изменить"
+                onClick={() => showEditCarPage()}
+            >
                 <div className={cl.button_img}>{ChangeButton}</div>
             </Button>
             <Button

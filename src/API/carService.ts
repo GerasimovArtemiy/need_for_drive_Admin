@@ -27,7 +27,11 @@ export default class CarService {
         return responseAPI.get(apiPath.cars, { params })
     }
 
-    static async deleteCar(carId: string) {
+    static async deleteCar(carId: string): Promise<AxiosResponse> {
         return responseAPI.delete(`${apiPath.cars}/${carId}`)
+    }
+
+    static async getCarById(carId: string | undefined): Promise<AxiosResponse> {
+        return responseAPI.get(`${apiPath.cars}/${carId}`)
     }
 }

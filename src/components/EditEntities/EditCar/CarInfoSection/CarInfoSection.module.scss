@@ -1,0 +1,55 @@
+@import '../../../../styles/variables.scss';
+
+.model {
+    font-family: $light;
+    width: 30%;
+    background: white;
+    box-sizing: border-box;
+    box-shadow: 0 1px 0 rgba(90, 97, 105, 0.11), 0 2px 4px rgba(90, 97, 105, 0.12),
+        0 5px 5px rgba(90, 97, 105, 0.06), 0 3.5px 35px rgba(90, 97, 105, 0.1);
+    border-radius: 10px;
+    margin-right: 30px;
+
+    @media screen and (max-width: 800px) {
+        width: 50%;
+        margin-right: 15px;
+    }
+    @media screen and (max-width: 550px) {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    &_container {
+        padding: 15px;
+        & h3 {
+            text-align: center;
+            font-family: $bold;
+            color: $color-dark-blue;
+        }
+    }
+    &_imageBox {
+        position: relative;
+        padding-top: 75%;
+        &_img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: auto;
+        }
+    }
+    &_descr {
+        font-size: 13px;
+        font-family: $light;
+        color: $color-dark-blue;
+        margin: 5px 0;
+        box-sizing: border-box;
+        box-shadow: 0 1px 0 rgba(90, 97, 105, 0.11), 0 2px 4px rgba(90, 97, 105, 0.12),
+            0 5px 5px rgba(90, 97, 105, 0.06), 0 3.5px 35px rgba(90, 97, 105, 0.1);
+        border-radius: 5px;
+        padding: 8px;
+        & span {
+            color: $color-black;
+            font-family: $bold;
+        }
+    }
+}
