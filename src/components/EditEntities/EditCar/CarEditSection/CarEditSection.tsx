@@ -5,11 +5,15 @@ import Button from '../../../UI/Buttons/Button'
 import CarColorInput from './CarColorInput/CarColorInput'
 import CarCategoryInput from './CarCategoryInput/CarCategoryInput'
 import CarFileInput from './CarFileInput/CarFileInput'
-import { useParams } from 'react-router-dom'
+import { putCar } from '../../../../store/Slices/CarsSlice'
+import { useAppDispatch } from '../../../../hooks/redux-hooks'
+import { useNavigate, useParams } from 'react-router-dom'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ICarInput, ICarFormValues } from '../../../../hooks/useCarFormInputs'
 import { ICar, ICategory } from '../../../Interfaces/CarInterface'
 import { carFormValidationSchema } from '../../../../YupValidations/CarFormValidation'
+import { useConverterFiles } from '../../../../hooks/useConverterFiles'
+import { useCarObject } from '../../../../hooks/useCarObject'
 import cl from './CarEditSection.module.scss'
 
 interface ICarEditSectionProps {
@@ -21,6 +25,10 @@ interface ICarEditSectionProps {
 const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carInputs }) => {
     const [colors, setColors] = useState<string[]>(car.colors)
     const { carId } = useParams()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const converterFile = useConverterFiles()
+    const createCarObject = useCarObject()
     const {
         register,
         handleSubmit,
@@ -32,9 +40,23 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
     })
 
     const onSubmit: SubmitHandler<ICarFormValues> = async (data: any) => {
-        console.log('sas')
-        console.log(data)
+        if (data.image.length) {
+            const path = await converterFile(data.image[0])
+            const newCar = createCarObject({
+                ...data,
+                colors: colors,
+                path: path,
+            })
+            dispatch(putCar({ carId: carId!, car: newCar }))
+        } else {
+            const newCar = createCarObject({
+                ...data,
+                colors: colors,
+            })
+            dispatch(putCar({ carId: carId!, car: newCar }))
+        }
     }
+
     const addColor = (color: string) => {
         if (colors) setColors([...colors, color])
     }
@@ -63,7 +85,7 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                             />
                         ))}
                         <Controller
-                            name={'category'}
+                            name="category"
                             control={control}
                             defaultValue={
                                 carId
@@ -102,7 +124,12 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                         />
                     </div>
                     <div className={cl.btn_container}>
-                        <Button type="button" title="Назад" className={cl.btn_back}></Button>
+                        <Button
+                            type="button"
+                            title="Назад"
+                            className={cl.btn_back}
+                            onClick={() => navigate(-1)}
+                        ></Button>
                         <Button type="submit" title="Готово" className={cl.btn}></Button>
                     </div>
                 </form>

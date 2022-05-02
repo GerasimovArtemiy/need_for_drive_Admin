@@ -11,15 +11,14 @@ import cl from './EditCarPage.module.scss'
 const EditCarPage: React.FC = () => {
     const { carId } = useParams()
     const dispatch = useAppDispatch()
-    const { carById, category } = useAppSelector((state) => state.cars)
+    const { carById, category, putCar } = useAppSelector((state) => state.cars)
     const setInputs = useCarFormInputs()
     const carInputs = setInputs(carById.selectCar)
 
     useEffect(() => {
         dispatch(getCarById(carId))
         dispatch(getCategory())
-    }, [])
-    console.log(carById.selectCar)
+    }, [putCar])
 
     return (
         <div className={cl.editCar}>

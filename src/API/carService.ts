@@ -1,7 +1,13 @@
 import axios, { AxiosResponse } from 'axios'
 import { IOrderParamsInterface } from '../components/Interfaces/ParamsInterface'
+import { INewCar } from '../components/Interfaces/CarInterface'
 import { apiPath } from './apiPath'
 import { BASE_URL, API_KEY } from './keys'
+
+interface IPutCar {
+    carId: string
+    car: INewCar
+}
 
 const bearerToken = localStorage.getItem('accessToken')
 const responseAPI = axios.create({
@@ -33,5 +39,15 @@ export default class CarService {
 
     static async getCarById(carId: string | undefined): Promise<AxiosResponse> {
         return responseAPI.get(`${apiPath.cars}/${carId}`)
+    }
+
+    static async postCar(newCar: INewCar) {
+        return responseAPI.post(apiPath.cars, { ...newCar })
+    }
+
+    static async putCar(newCar: IPutCar): Promise<AxiosResponse> {
+        return responseAPI.put(`${apiPath.cars}/${newCar.carId}`, {
+            ...newCar.car,
+        })
     }
 }

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CarService from '../../API/carService'
-import { ICar, ICarsResponse, ICategory } from '../../components/Interfaces/CarInterface'
+import { ICar, ICarsResponse, ICategory, INewCar } from '../../components/Interfaces/CarInterface'
 import { ICarParamsInterface } from '../../components/Interfaces/ParamsInterface'
 
 interface ICarState {
@@ -19,6 +19,10 @@ interface ICarState {
     carById: {
         selectCar: ICar
         status: null | string
+    }
+    putCar: {
+        status: string | null
+        data: INewCar
     }
     filter: {
         params: ICarParamsInterface
@@ -46,6 +50,10 @@ const initialState: ICarState = {
     carById: {
         selectCar: {} as ICar,
         status: null,
+    },
+    putCar: {
+        status: null,
+        data: {} as INewCar,
     },
     filter: {
         params: {} as ICarParamsInterface,
@@ -75,6 +83,13 @@ export const getCarById = createAsyncThunk('cars/getCarById', async (carId: stri
 export const deleteCar = createAsyncThunk('rate/deleteCar', async (carId: string) => {
     await CarService.deleteCar(carId)
 })
+export const putCar = createAsyncThunk(
+    'cars/putCar',
+    async (newCar: { carId: string; car: INewCar }) => {
+        const response = await CarService.putCar(newCar)
+        return response.data.data
+    }
+)
 
 const CarsSlice = createSlice({
     name: 'cars',
@@ -161,6 +176,23 @@ const CarsSlice = createSlice({
         })
         builder.addCase(getCarById.rejected, (state) => {
             state.carById.status = 'rejected'
+        })
+
+        // =======================================================
+
+        builder.addCase(putCar.pending, (state) => {
+            state.putCar.status = 'loading'
+        })
+        builder.addCase(putCar.fulfilled, (state, action: PayloadAction<INewCar>) => {
+            if (action.payload) {
+                state.putCar.data = action.payload
+                state.putCar.status = 'resolved'
+            } else {
+                state.putCar.status = 'rejected'
+            }
+        })
+        builder.addCase(putCar.rejected, (state) => {
+            state.putCar.status = 'rejected'
         })
     },
 })

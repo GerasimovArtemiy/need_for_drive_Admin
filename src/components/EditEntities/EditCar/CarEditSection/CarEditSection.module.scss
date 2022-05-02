@@ -23,7 +23,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 15px;
-        margin-bottom: 75px;
+        margin-bottom: 20px;
 
         @media screen and (max-width: 800px) {
             display: flex;
@@ -41,7 +41,7 @@
             border: 1px solid #9eb1c4;
             box-sizing: border-box;
             border-radius: 3px;
-            padding: 8px 11px 8px;
+            padding: 8px 11px;
             outline-style: none;
             color: $color-dark-blue;
         }

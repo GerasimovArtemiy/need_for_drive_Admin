@@ -31,3 +31,15 @@ export interface ICarsResponse {
 export interface ICategoryResponse {
     data: ICategory[]
 }
+
+export interface INewCar {
+    description: string
+    priceMin: number
+    priceMax: number
+    name: string
+    number: string
+    categoryId: ICategory
+    thumbnail?: IThumbnail
+    tank: number
+    colors: string[]
+}
