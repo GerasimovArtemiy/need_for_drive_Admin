@@ -20,4 +20,8 @@ export default class OrderService {
     static async getOrderStatuses(): Promise<AxiosResponse> {
         return responseAPI.get(apiPath.orderStatus)
     }
+
+    static async getOrderById(orderId: string | undefined): Promise<AxiosResponse> {
+        return responseAPI.get(`${apiPath.order}/${orderId}`)
+    }
 }

@@ -64,7 +64,7 @@ const OrderItem: React.FC<IOrderItemProps> = ({ order }) => {
                     {' '}
                     <span> {order.price ? `${order.price}₽` : '0_o'}</span>
                 </div>
-                <OrderItemButtons />
+                <OrderItemButtons orderId={order.id} />
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import OrderService from '../../API/orderService'
-import { IOrderStatus, IOrdersResponse } from '../../components/Interfaces/OrderInterface'
+import { IOrderStatus, IOrdersResponse, IOrder } from '../../components/Interfaces/OrderInterface'
 import { IOrderParamsInterface } from '../../components/Interfaces/ParamsInterface'
 
 interface IOrderState {
@@ -11,6 +11,10 @@ interface IOrderState {
     orderStatuses: {
         data: IOrderStatus[]
         status: string | null
+    }
+    orderById: {
+        status: string | null
+        selectOrder: IOrder
     }
     filter: {
         params: IOrderParamsInterface
@@ -31,6 +35,10 @@ const initialState: IOrderState = {
         status: null,
         data: [],
     },
+    orderById: {
+        status: null,
+        selectOrder: {} as IOrder,
+    },
     filter: {
         params: {} as IOrderParamsInterface,
         currentPage: 1,
@@ -48,6 +56,13 @@ export const getOrderStatuses = createAsyncThunk('order/getOrderStatuses', async
     const response = await OrderService.getOrderStatuses()
     return response.data.data
 })
+export const getOrderById = createAsyncThunk(
+    'order/getOrderById',
+    async (orderId: string | undefined) => {
+        const response = await OrderService.getOrderById(orderId)
+        return response.data.data
+    }
+)
 
 const OrderSLice = createSlice({
     name: 'order',
@@ -100,6 +115,23 @@ const OrderSLice = createSlice({
         )
         builder.addCase(getOrderStatuses.rejected, (state) => {
             state.orderStatuses.status = 'rejected'
+        })
+
+        // =======================================================
+
+        builder.addCase(getOrderById.pending, (state) => {
+            state.orderById.status = 'loading'
+        })
+        builder.addCase(getOrderById.fulfilled, (state, action: PayloadAction<IOrder>) => {
+            if (action.payload) {
+                state.orderById.selectOrder = action.payload
+                state.orderById.status = 'resolved'
+            } else {
+                state.orderById.status = 'rejected'
+            }
+        })
+        builder.addCase(getOrderById.rejected, (state) => {
+            state.orderById.status = 'rejected'
         })
     },
 })
