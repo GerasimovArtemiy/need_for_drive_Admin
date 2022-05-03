@@ -22,6 +22,7 @@ const Router: React.FC = () => {
                 <Route path={routerPath.carList} element={<CarTab />} />
                 <Route path={routerPath.cityList} element={<CityTab />} />
                 <Route path={routerPath.carEdit} element={<EditCarPage />} />
+                <Route path={routerPath.carAdd} element={<EditCarPage />} />
                 <Route path={routerPath.rateList} element={<RateTab />} />
             </Route>
         </Routes>

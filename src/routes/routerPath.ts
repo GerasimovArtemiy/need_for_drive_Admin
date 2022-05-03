@@ -6,6 +6,7 @@ export enum routerPath {
     orderEdit = '/need_for_drive_Admin/admin/order/:orderId',
     carList = '/need_for_drive_Admin/admin/cars',
     carEdit = '/need_for_drive_Admin/admin/cars/:carId',
+    carAdd = '/need_for_drive_Admin/admin/addCar',
     cityList = '/need_for_drive_Admin/admin/cities',
     rateList = '/need_for_drive_Admin/admin/rates',
 }

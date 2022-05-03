@@ -36,7 +36,7 @@ export const navbarItems: INavbarItems[] = [
     {
         id: 4,
         title: 'Добавить автомобиль',
-        path: routerPath.adminPanel,
+        path: routerPath.carAdd,
         img: pencil,
     },
 ]

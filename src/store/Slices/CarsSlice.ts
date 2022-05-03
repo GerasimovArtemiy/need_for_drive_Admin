@@ -90,6 +90,10 @@ export const putCar = createAsyncThunk(
         return response.data.data
     }
 )
+export const postCar = createAsyncThunk('cars/postCar', async (newCar: INewCar) => {
+    const response = await CarService.postCar(newCar)
+    console.log(response.data.data)
+})
 
 const CarsSlice = createSlice({
     name: 'cars',
@@ -104,8 +108,8 @@ const CarsSlice = createSlice({
         setCarCurrentPage(state, action: PayloadAction<number>) {
             state.filter.currentPage = action.payload
         },
-        resetCars(state) {
-            return { ...state, ...initialState }
+        resetCarById(state) {
+            state.carById = initialState.carById
         },
     },
     extraReducers: (builder) => {
@@ -196,5 +200,5 @@ const CarsSlice = createSlice({
         })
     },
 })
-export const { setCarFilter, resetCarFilter, setCarCurrentPage } = CarsSlice.actions
+export const { setCarFilter, resetCarFilter, setCarCurrentPage, resetCarById } = CarsSlice.actions
 export default CarsSlice.reducer

@@ -5,16 +5,20 @@ import Button from '../../../UI/Buttons/Button'
 import CarColorInput from './CarColorInput/CarColorInput'
 import CarCategoryInput from './CarCategoryInput/CarCategoryInput'
 import CarFileInput from './CarFileInput/CarFileInput'
-import { putCar } from '../../../../store/Slices/CarsSlice'
+import { postCar, putCar } from '../../../../store/Slices/CarsSlice'
 import { useAppDispatch } from '../../../../hooks/redux-hooks'
 import { useNavigate, useParams } from 'react-router-dom'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ICarInput, ICarFormValues } from '../../../../hooks/useCarFormInputs'
 import { ICar, ICategory } from '../../../Interfaces/CarInterface'
-import { carFormValidationSchema } from '../../../../YupValidations/CarFormValidation'
+import {
+    carEditValidationSchema,
+    carAddValidationSchema,
+} from '../../../../YupValidations/CarFormValidation'
 import { useConverterFiles } from '../../../../hooks/useConverterFiles'
 import { useCarObject } from '../../../../hooks/useCarObject'
 import cl from './CarEditSection.module.scss'
+import GreenModal from '../../../UI/GreenModal/GreenModal'
 
 interface ICarEditSectionProps {
     car: ICar
@@ -23,19 +27,21 @@ interface ICarEditSectionProps {
 }
 
 const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carInputs }) => {
-    const [colors, setColors] = useState<string[]>(car.colors)
+    const [colors, setColors] = useState<string[] | undefined>(car.colors)
+    const [activeModal, setActiveModal] = useState<boolean>(false)
     const { carId } = useParams()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const converterFile = useConverterFiles()
     const createCarObject = useCarObject()
+
     const {
         register,
         handleSubmit,
         control,
         formState: { errors, isValid },
     } = useForm<ICarFormValues>({
-        resolver: yupResolver(carFormValidationSchema),
+        resolver: yupResolver(carId ? carEditValidationSchema : carAddValidationSchema),
         mode: 'onBlur',
     })
 
@@ -47,29 +53,43 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                 colors: colors,
                 path: path,
             })
-            dispatch(putCar({ carId: carId!, car: newCar }))
+            if (newCar && carId) dispatch(putCar({ carId: carId!, car: newCar }))
+            if (newCar) {
+                dispatch(postCar(newCar))
+                setActiveModal(true)
+            }
         } else {
             const newCar = createCarObject({
                 ...data,
                 colors: colors,
             })
-            dispatch(putCar({ carId: carId!, car: newCar }))
+            if (newCar && carId) dispatch(putCar({ carId: carId!, car: newCar }))
+            if (newCar) {
+                dispatch(postCar(newCar))
+                setActiveModal(true)
+            }
         }
     }
 
     const addColor = (color: string) => {
-        if (colors) setColors([...colors, color])
+        if (colors) {
+            setColors([...colors, color])
+        } else {
+            setColors([color])
+        }
     }
     const deleteColor = (colorValue: string) => {
-        const newColors = colors.filter((color) => color !== colorValue)
-        setColors(newColors)
+        if (colors !== undefined) {
+            const newColors = colors.filter((color) => color !== colorValue)
+            setColors(newColors)
+        }
     }
 
     return (
         <section className={cl.carForm}>
             <div className={cl.carForm_container}>
                 <form className={cl.carForm_form} onSubmit={handleSubmit(onSubmit)}>
-                    <h3>Изменить автомобиль</h3>
+                    <h3>{carId ? 'Изменить автомобиль' : 'Добавить автомобиль'}</h3>
                     <div className={cl.input_container}>
                         {carInputs.map((input) => (
                             <CarInput
@@ -130,9 +150,14 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                             className={cl.btn_back}
                             onClick={() => navigate(-1)}
                         ></Button>
-                        <Button type="submit" title="Готово" className={cl.btn}></Button>
+                        <Button
+                            type="submit"
+                            title={carId ? 'Готово' : 'Добавить'}
+                            className={cl.btn}
+                        ></Button>
                     </div>
                 </form>
+                <GreenModal active={activeModal} setActive={setActiveModal} />
             </div>
         </section>
     )

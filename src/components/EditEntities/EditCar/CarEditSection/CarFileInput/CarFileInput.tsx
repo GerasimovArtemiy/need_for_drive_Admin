@@ -49,7 +49,6 @@ const CarFileInput: React.FC<IFileInputProps> = (props) => {
                     className={cl.input_btn}
                 />
             </div>
-
             {errors.image && <span className={cl.error}>{errors.image.message}</span>}
         </div>
     )
