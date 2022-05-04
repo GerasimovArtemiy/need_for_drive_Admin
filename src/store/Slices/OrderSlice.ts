@@ -83,6 +83,12 @@ export const putOrder = createAsyncThunk(
         return response.data.data
     }
 )
+export const deleteOrderById = createAsyncThunk(
+    'order/deleteOrderById',
+    async (orderId: string | undefined) => {
+        await OrderService.deleteOrder(orderId)
+    }
+)
 
 const OrderSLice = createSlice({
     name: 'order',

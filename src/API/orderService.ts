@@ -34,4 +34,8 @@ export default class OrderService {
             ...newOrder.order,
         })
     }
+
+    static async deleteOrder(orderId: string | undefined): Promise<AxiosResponse> {
+        return responseAPI.delete(`${apiPath.order}/${orderId}`)
+    }
 }
