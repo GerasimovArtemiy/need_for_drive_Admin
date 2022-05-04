@@ -15,7 +15,7 @@ export const titlesItems: ITitle[] = [
     },
     {
         id: 2,
-        title: 'Цена',
+        title: 'Цена, ₽',
     },
 ]
 

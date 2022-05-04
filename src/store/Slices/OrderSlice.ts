@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import OrderService from '../../API/orderService'
-import { IOrderStatus, IOrdersResponse, IOrder } from '../../components/Interfaces/OrderInterface'
+import {
+    IOrderStatus,
+    IOrdersResponse,
+    IOrder,
+    INewOrder,
+} from '../../components/Interfaces/OrderInterface'
 import { IOrderParamsInterface } from '../../components/Interfaces/ParamsInterface'
 
 interface IOrderState {
@@ -15,6 +20,10 @@ interface IOrderState {
     orderById: {
         status: string | null
         selectOrder: IOrder
+    }
+    putOrder: {
+        status: null | string
+        data: IOrder
     }
     filter: {
         params: IOrderParamsInterface
@@ -39,6 +48,10 @@ const initialState: IOrderState = {
         status: null,
         selectOrder: {} as IOrder,
     },
+    putOrder: {
+        status: null,
+        data: {} as IOrder,
+    },
     filter: {
         params: {} as IOrderParamsInterface,
         currentPage: 1,
@@ -60,6 +73,13 @@ export const getOrderById = createAsyncThunk(
     'order/getOrderById',
     async (orderId: string | undefined) => {
         const response = await OrderService.getOrderById(orderId)
+        return response.data.data
+    }
+)
+export const putOrder = createAsyncThunk(
+    'order/putOrder',
+    async (newCar: { orderId: string | undefined; order: INewOrder }) => {
+        const response = await OrderService.putOrder(newCar)
         return response.data.data
     }
 )
@@ -132,6 +152,23 @@ const OrderSLice = createSlice({
         })
         builder.addCase(getOrderById.rejected, (state) => {
             state.orderById.status = 'rejected'
+        })
+
+        // =======================================================
+
+        builder.addCase(putOrder.pending, (state) => {
+            state.putOrder.status = 'loading'
+        })
+        builder.addCase(putOrder.fulfilled, (state, action: PayloadAction<IOrder>) => {
+            if (action.payload) {
+                state.putOrder.data = action.payload
+                state.putOrder.status = 'resolved'
+            } else {
+                state.putOrder.status = 'rejected'
+            }
+        })
+        builder.addCase(putOrder.rejected, (state) => {
+            state.putOrder.status = 'rejected'
         })
     },
 })

@@ -47,4 +47,8 @@ export default class CityAndRateService {
     static async deleteRateType(rateType: string): Promise<AxiosResponse> {
         return responseAPI.delete(`${apiPath.rateType}/${rateType}`)
     }
+
+    static async getPointsById(cityId: string | undefined): Promise<AxiosResponse> {
+        return responseAPI.get(`${apiPath.point}?cityId=${cityId}`)
+    }
 }

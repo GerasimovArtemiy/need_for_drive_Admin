@@ -33,3 +33,13 @@ export interface IOrdersResponse {
     count: number
     fields?: any
 }
+export interface INewOrder {
+    orderStatusId: { id: string }
+    cityId: { id: string }
+    pointId: { id: string }
+    carId: { id: string }
+    color: string
+    isFullTank: boolean
+    isNeedChildChair: boolean
+    isRightWheel: boolean
+}
