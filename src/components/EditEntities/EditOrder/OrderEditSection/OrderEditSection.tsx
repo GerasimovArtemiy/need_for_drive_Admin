@@ -35,7 +35,7 @@ const OrderEditSection: React.FC<IOrderEditSectionProps> = ({ inputs }) => {
             dispatch(putOrder({ orderId: orderId, order: newOrder }))
         }
     }
-
+    console.log('render')
     return (
         <section className={cl.orderForm}>
             <div className={cl.orderForm_container}>

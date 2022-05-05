@@ -10,6 +10,7 @@ import EditCarPage from '../components/EditEntities/EditCar/EditCarPage'
 import RateTab from '../components/AdminTabs/RateTab/RateTab'
 import EditOrderPage from '../components/EditEntities/EditOrder/EditOrderPage'
 import { routerPath } from './routerPath'
+import ErrorPage from '../pages/ErrorPage/ErrorPage'
 
 const Router: React.FC = () => {
     return (
@@ -24,6 +25,7 @@ const Router: React.FC = () => {
                 <Route path={routerPath.carEdit} element={<EditCarPage />} />
                 <Route path={routerPath.carAdd} element={<EditCarPage />} />
                 <Route path={routerPath.rateList} element={<RateTab />} />
+                <Route path="*" element={<ErrorPage />} />
             </Route>
         </Routes>
     )

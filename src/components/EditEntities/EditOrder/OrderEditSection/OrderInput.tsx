@@ -7,6 +7,7 @@ import { IOrderInputsNames } from '../../../../hooks/useOrderFormInputs'
 import cl from './OrderEditSection.module.scss'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks'
 import { getPointsById } from '../../../../store/Slices/CitySlice'
+import { getCarById } from '../../../../store/Slices/CarsSlice'
 
 interface IOrderInputProps {
     placeholder: string
@@ -35,7 +36,8 @@ const OrderInput: React.FC<IOrderInputProps> = (props) => {
     const { placeholder, name, items, optionKey, field, id, errors, label } = props
     const dispatch = useAppDispatch()
     const points = useAppSelector((state) => state.city.pointsById.data)
-    let options = items && items.map(getOptionsByKey(optionKey))
+    const carById = useAppSelector((state) => state.cars.carById.selectCar)
+    const options = items && items.map(getOptionsByKey(optionKey))
 
     const getError = () => {
         if (name === 'city' && errors.city) return errors.city.message
@@ -43,17 +45,16 @@ const OrderInput: React.FC<IOrderInputProps> = (props) => {
         if (name === 'car' && errors.car) return errors.car.message
         if (name === 'tank' && errors.tank) return errors.tank.message
         if (name === 'rate' && errors.rate) return errors.rate.message
-        if (name === 'childChair' && errors.childChair) return errors.orderStatus.message
-        if (name === 'rightWheel' && errors.rightWheel) return errors.orderStatus.message
+        if (name === 'childChair' && errors.childChair) return errors.childChair.message
+        if (name === 'rightWheel' && errors.rightWheel) return errors.rightWheel.message
     }
 
     useEffect(() => {
         if (name === 'city' && field.value) {
             dispatch(getPointsById(field.value.id))
-            options = points.map((point) => ({
-                name: point.address,
-                id: point.id,
-            }))
+        }
+        if (name === 'car' && field.value) {
+            dispatch(getCarById(field.value.id))
         }
     }, [name, field.value])
 

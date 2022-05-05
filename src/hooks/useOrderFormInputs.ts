@@ -27,8 +27,8 @@ export interface IOrderInput {
 export const useOrderFormInputs = () => {
     const orderById = useAppSelector((state) => state.order.orderById.selectOrder)
     const cities = useAppSelector((state) => state.city.cities.items.data)
-    const rates = useAppSelector((state) => state.rate.allRates)
     const cars = useAppSelector((state) => state.cars.allCars.data)
+    const colorsSelectCar = useAppSelector((state) => state.cars.carById.selectCar.colors)
     const orderStatuses = useAppSelector((state) => state.order.orderStatuses.data)
     const pointsByCityId = useAppSelector((state) => state.city.pointsById.data)
     const boleanItem = [
@@ -42,10 +42,10 @@ export const useOrderFormInputs = () => {
 
     const setOrderInputValues = (): IOrderInput[] => {
         const colorItem =
-            orderById &&
-            orderById.carId?.colors.map((color) => ({
+            colorsSelectCar &&
+            colorsSelectCar.map((color, index) => ({
                 name: color,
-                id: orderById.carId.id,
+                id: index,
             }))
         const inputValues: IOrderInput[] = [
             {

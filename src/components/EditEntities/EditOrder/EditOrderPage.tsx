@@ -6,7 +6,7 @@ import { useOrderFormInputs } from '../../../hooks/useOrderFormInputs'
 import { getOrderById, getOrderStatuses } from '../../../store/Slices/OrderSlice'
 import { getCities, getPointsById } from '../../../store/Slices/CitySlice'
 import { getAllRates } from '../../../store/Slices/RateSlice'
-import { getAllCars } from '../../../store/Slices/CarsSlice'
+import { getAllCars, getCarById } from '../../../store/Slices/CarsSlice'
 import MyLoader from '../../Loader/MyLoader'
 import InfoSection from '../InfoSection/InfoSection'
 import carShadow from '../../../assets/img/car-shadow.png'
@@ -34,7 +34,6 @@ const EditOrderPage: React.FC = () => {
         dispatch(getAllRates())
         dispatch(getAllCars())
         dispatch(getOrderStatuses())
-        orderById.selectOrder.cityId && dispatch(getPointsById(orderById.selectOrder.cityId.id))
     }
     useEffect(() => {
         loadInputs()
