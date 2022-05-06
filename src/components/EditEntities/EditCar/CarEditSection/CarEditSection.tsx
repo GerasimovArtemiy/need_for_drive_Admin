@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CarInput from './CarInput'
 import Button from '../../../UI/Buttons/Button'
 import CarColorInput from './CarColorInput/CarColorInput'
@@ -29,6 +29,7 @@ interface ICarEditSectionProps {
 const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carInputs }) => {
     const [colors, setColors] = useState<string[] | undefined>(car.colors)
     const [activeModal, setActiveModal] = useState<boolean>(false)
+    const [isEditPage, setIsEditPage] = useState<boolean>(false)
     const { carId } = useParams()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -45,6 +46,14 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
         mode: 'onBlur',
     })
 
+    useEffect(() => {
+        if (carId) {
+            setIsEditPage(true)
+        } else {
+            setIsEditPage(false)
+        }
+    }, [])
+
     const onSubmit: SubmitHandler<ICarFormValues> = async (data: any) => {
         if (data.image.length) {
             const path = await converterFile(data.image[0])
@@ -53,8 +62,9 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                 colors: colors,
                 path: path,
             })
-            if (newCar && carId) dispatch(putCar({ carId: carId!, car: newCar }))
-            if (newCar) {
+            if (isEditPage) {
+                dispatch(putCar({ carId: carId!, car: newCar }))
+            } else {
                 dispatch(postCar(newCar))
                 setActiveModal(true)
             }
@@ -63,8 +73,9 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                 ...data,
                 colors: colors,
             })
-            if (newCar && carId) dispatch(putCar({ carId: carId!, car: newCar }))
-            if (newCar) {
+            if (isEditPage) {
+                dispatch(putCar({ carId: carId!, car: newCar }))
+            } else {
                 dispatch(postCar(newCar))
                 setActiveModal(true)
             }
@@ -108,13 +119,17 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                             name="category"
                             control={control}
                             defaultValue={
-                                carId
+                                carId && car.categoryId
                                     ? {
-                                          id: car.categoryId.id,
-                                          value: car.categoryId.name,
-                                          label: car.categoryId.name,
+                                          id: car.categoryId?.id,
+                                          value: car.categoryId?.name,
+                                          label: car.categoryId?.name,
                                       }
-                                    : undefined
+                                    : {
+                                          id: '0',
+                                          value: 'Не известно',
+                                          label: 'Не известно',
+                                      }
                             }
                             render={({ field }) => (
                                 <CarCategoryInput

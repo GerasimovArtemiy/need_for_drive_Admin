@@ -5,7 +5,7 @@ import { DropdownIndicator } from '../../../UI/SelectFilter/SelectIcon'
 import { ISelectOption } from '../../../Interfaces/SelectOptionInterface'
 import { IOrderInputsNames } from '../../../../hooks/useOrderFormInputs'
 import cl from './OrderEditSection.module.scss'
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hooks'
+import { useAppDispatch } from '../../../../hooks/redux-hooks'
 import { getPointsById } from '../../../../store/Slices/CitySlice'
 import { getCarById } from '../../../../store/Slices/CarsSlice'
 
@@ -35,9 +35,12 @@ const getOptionsByKey =
 const OrderInput: React.FC<IOrderInputProps> = (props) => {
     const { placeholder, name, items, optionKey, field, id, errors, label } = props
     const dispatch = useAppDispatch()
-    const points = useAppSelector((state) => state.city.pointsById.data)
-    const carById = useAppSelector((state) => state.cars.carById.selectCar)
     const options = items && items.map(getOptionsByKey(optionKey))
+    const noOptionsMessage = (): string => {
+        if (name === 'point') return 'Выберете город '
+        if (name === 'color') return 'Выберете модель'
+        return 'Не найдено'
+    }
 
     const getError = () => {
         if (name === 'city' && errors.city) return errors.city.message
@@ -72,7 +75,7 @@ const OrderInput: React.FC<IOrderInputProps> = (props) => {
                 placeholder={placeholder}
                 filterOption={createFilter(filterConfig)}
                 options={options}
-                noOptionsMessage={() => 'Не найдено'}
+                noOptionsMessage={() => noOptionsMessage()}
                 components={{ DropdownIndicator }}
             />
 

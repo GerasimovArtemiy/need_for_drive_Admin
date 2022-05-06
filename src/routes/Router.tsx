@@ -25,7 +25,7 @@ const Router: React.FC = () => {
                 <Route path={routerPath.carEdit} element={<EditCarPage />} />
                 <Route path={routerPath.carAdd} element={<EditCarPage />} />
                 <Route path={routerPath.rateList} element={<RateTab />} />
-                <Route path="*" element={<ErrorPage />} />
+                <Route path="*" element={<ErrorPage title="" />} />
             </Route>
         </Routes>
     )

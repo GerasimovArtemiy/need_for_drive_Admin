@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks'
 import { useCarFormInputs } from '../../../hooks/useCarFormInputs'
@@ -29,12 +29,12 @@ const EditCarPage: React.FC = () => {
     }
 
     useEffect(() => {
-        if (carId) {
-            dispatch(getCarById(carId))
-            dispatch(getCategory())
-        }
-        dispatch(getCategory())
+        if (carId) dispatch(getCarById(carId))
     }, [putCar, carId])
+
+    useMemo(() => {
+        dispatch(getCategory())
+    }, [])
 
     if (location.pathname === routerPath.carAdd) {
         dispatch(resetCarById())

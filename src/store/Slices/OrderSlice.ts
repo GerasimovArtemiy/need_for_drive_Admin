@@ -29,6 +29,10 @@ interface IOrderState {
         params: IOrderParamsInterface
         currentPage: number
     }
+    orderErrors: {
+        isError: boolean
+        errorMessage: string
+    }
 }
 
 const initialState: IOrderState = {
@@ -55,6 +59,10 @@ const initialState: IOrderState = {
     filter: {
         params: {} as IOrderParamsInterface,
         currentPage: 1,
+    },
+    orderErrors: {
+        isError: false,
+        errorMessage: '',
     },
 }
 
@@ -110,6 +118,8 @@ const OrderSLice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getOrders.pending, (state) => {
             state.orders.status = 'loading'
+            state.orderErrors.isError = false
+            state.orderErrors = initialState.orderErrors
         })
         builder.addCase(getOrders.fulfilled, (state, action: PayloadAction<IOrdersResponse>) => {
             if (action.payload) {
@@ -117,16 +127,22 @@ const OrderSLice = createSlice({
                 state.orders.status = 'resolved'
             } else {
                 state.orders.status = 'rejected'
+                state.orderErrors.isError = true
+                state.orderErrors.errorMessage = 'Не удалось загрузить заказы'
             }
         })
         builder.addCase(getOrders.rejected, (state) => {
             state.orders.status = 'rejected'
+            state.orderErrors.isError = true
+            state.orderErrors.errorMessage = 'Не удалось загрузить заказы'
         })
 
         // =======================================================
 
         builder.addCase(getOrderStatuses.pending, (state) => {
             state.orderStatuses.status = 'loading'
+            state.orderErrors.isError = false
+            state.orderErrors = initialState.orderErrors
         })
         builder.addCase(
             getOrderStatuses.fulfilled,
@@ -136,17 +152,23 @@ const OrderSLice = createSlice({
                     state.orderStatuses.status = 'resolved'
                 } else {
                     state.orderStatuses.status = 'rejected'
+                    state.orderErrors.isError = true
+                    state.orderErrors.errorMessage = 'Не удалось загрузить статусы заказов'
                 }
             }
         )
         builder.addCase(getOrderStatuses.rejected, (state) => {
             state.orderStatuses.status = 'rejected'
+            state.orderErrors.isError = true
+            state.orderErrors.errorMessage = 'Не удалось загрузить статусы заказов'
         })
 
         // =======================================================
 
         builder.addCase(getOrderById.pending, (state) => {
             state.orderById.status = 'loading'
+            state.orderErrors.isError = false
+            state.orderErrors = initialState.orderErrors
         })
         builder.addCase(getOrderById.fulfilled, (state, action: PayloadAction<IOrder>) => {
             if (action.payload) {
@@ -154,16 +176,22 @@ const OrderSLice = createSlice({
                 state.orderById.status = 'resolved'
             } else {
                 state.orderById.status = 'rejected'
+                state.orderErrors.isError = true
+                state.orderErrors.errorMessage = 'Не удалось загрузить заказ'
             }
         })
         builder.addCase(getOrderById.rejected, (state) => {
             state.orderById.status = 'rejected'
+            state.orderErrors.isError = true
+            state.orderErrors.errorMessage = 'Не удалось загрузить заказ'
         })
 
         // =======================================================
 
         builder.addCase(putOrder.pending, (state) => {
             state.putOrder.status = 'loading'
+            state.orderErrors.isError = false
+            state.orderErrors = initialState.orderErrors
         })
         builder.addCase(putOrder.fulfilled, (state, action: PayloadAction<IOrder>) => {
             if (action.payload) {
@@ -171,10 +199,14 @@ const OrderSLice = createSlice({
                 state.putOrder.status = 'resolved'
             } else {
                 state.putOrder.status = 'rejected'
+                state.orderErrors.isError = true
+                state.orderErrors.errorMessage = 'Не удалось изменить заказ'
             }
         })
         builder.addCase(putOrder.rejected, (state) => {
             state.putOrder.status = 'rejected'
+            state.orderErrors.isError = true
+            state.orderErrors.errorMessage = 'Не удалось изменить заказ'
         })
     },
 })

@@ -28,6 +28,10 @@ interface ICarState {
         params: ICarParamsInterface
         currentPage: number
     }
+    carErrors: {
+        isError: boolean
+        errorMessage: string
+    }
 }
 
 const initialState: ICarState = {
@@ -58,6 +62,10 @@ const initialState: ICarState = {
     filter: {
         params: {} as ICarParamsInterface,
         currentPage: 1,
+    },
+    carErrors: {
+        isError: false,
+        errorMessage: '',
     },
 }
 
@@ -115,6 +123,8 @@ const CarsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getCategory.pending, (state) => {
             state.category.status = 'loading'
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
         })
         builder.addCase(getCategory.fulfilled, (state, action: PayloadAction<ICategory[]>) => {
             if (action.payload) {
@@ -122,16 +132,22 @@ const CarsSlice = createSlice({
                 state.category.status = 'resolved'
             } else {
                 state.category.status = 'rejected'
+                state.carErrors.isError = true
+                state.carErrors.errorMessage = 'Не удалось загрузить категории авто'
             }
         })
         builder.addCase(getCategory.rejected, (state) => {
             state.category.status = 'rejected'
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось загрузить категории авто'
         })
 
         // =======================================================
 
         builder.addCase(getAllCars.pending, (state) => {
             state.allCars.status = 'loading'
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
         })
         builder.addCase(getAllCars.fulfilled, (state, action: PayloadAction<ICar[]>) => {
             if (action.payload) {
@@ -139,16 +155,22 @@ const CarsSlice = createSlice({
                 state.allCars.status = 'resolved'
             } else {
                 state.allCars.status = 'rejected'
+                state.carErrors.isError = true
+                state.carErrors.errorMessage = 'Не удалось загрузить автомобили'
             }
         })
         builder.addCase(getAllCars.rejected, (state) => {
             state.allCars.status = 'rejected'
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось загрузить автомобили'
         })
 
         // =======================================================
 
         builder.addCase(getCarsByParams.pending, (state) => {
             state.carsByParams.status = 'loading'
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
         })
         builder.addCase(
             getCarsByParams.fulfilled,
@@ -158,17 +180,23 @@ const CarsSlice = createSlice({
                     state.carsByParams.status = 'resolved'
                 } else {
                     state.carsByParams.status = 'rejected'
+                    state.carErrors.isError = true
+                    state.carErrors.errorMessage = 'Не удалось загрузить авотмобили'
                 }
             }
         )
         builder.addCase(getCarsByParams.rejected, (state) => {
             state.carsByParams.status = 'rejected'
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось загрузить авотмобили'
         })
 
         // =======================================================
 
         builder.addCase(getCarById.pending, (state) => {
             state.carById.status = 'loading'
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
         })
         builder.addCase(getCarById.fulfilled, (state, action: PayloadAction<ICar>) => {
             if (action.payload) {
@@ -176,16 +204,22 @@ const CarsSlice = createSlice({
                 state.carById.status = 'resolved'
             } else {
                 state.carById.status = 'rejected'
+                state.carErrors.isError = true
+                state.carErrors.errorMessage = 'Не удалось загрузить авотмобиль'
             }
         })
         builder.addCase(getCarById.rejected, (state) => {
             state.carById.status = 'rejected'
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось загрузить авотмобиль'
         })
 
         // =======================================================
 
         builder.addCase(putCar.pending, (state) => {
             state.putCar.status = 'loading'
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
         })
         builder.addCase(putCar.fulfilled, (state, action: PayloadAction<INewCar>) => {
             if (action.payload) {
@@ -193,10 +227,14 @@ const CarsSlice = createSlice({
                 state.putCar.status = 'resolved'
             } else {
                 state.putCar.status = 'rejected'
+                state.carErrors.isError = true
+                state.carErrors.errorMessage = 'Не удалось изменить авотмобиль'
             }
         })
         builder.addCase(putCar.rejected, (state) => {
             state.putCar.status = 'rejected'
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось изменить авотмобиль'
         })
     },
 })
