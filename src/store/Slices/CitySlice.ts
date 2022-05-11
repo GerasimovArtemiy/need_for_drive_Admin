@@ -58,6 +58,10 @@ const CitySlice = createSlice({
         resetCities(state) {
             return { ...state, ...initialState }
         },
+        resetCityError(state) {
+            state.cityErrors.isError = false
+            state.cityErrors.errorMessage = ''
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCities.pending, (state) => {
@@ -106,4 +110,5 @@ const CitySlice = createSlice({
     },
 })
 
+export const { resetCityError } = CitySlice.actions
 export default CitySlice.reducer

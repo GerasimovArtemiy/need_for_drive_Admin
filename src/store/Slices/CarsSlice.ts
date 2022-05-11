@@ -100,7 +100,7 @@ export const putCar = createAsyncThunk(
 )
 export const postCar = createAsyncThunk('cars/postCar', async (newCar: INewCar) => {
     const response = await CarService.postCar(newCar)
-    console.log(response.data.data)
+    return response.data.data
 })
 
 const CarsSlice = createSlice({
@@ -118,6 +118,10 @@ const CarsSlice = createSlice({
         },
         resetCarById(state) {
             state.carById = initialState.carById
+        },
+        resetCarError(state) {
+            state.carErrors.isError = false
+            state.carErrors.errorMessage = ''
         },
     },
     extraReducers: (builder) => {
@@ -236,7 +240,19 @@ const CarsSlice = createSlice({
             state.carErrors.isError = true
             state.carErrors.errorMessage = 'Не удалось изменить авотмобиль'
         })
+
+        // =======================================================
+
+        builder.addCase(postCar.pending, (state) => {
+            state.carErrors.isError = false
+            state.carErrors = initialState.carErrors
+        })
+        builder.addCase(postCar.rejected, (state) => {
+            state.carErrors.isError = true
+            state.carErrors.errorMessage = 'Не удалось добавить авотмобиль'
+        })
     },
 })
-export const { setCarFilter, resetCarFilter, setCarCurrentPage, resetCarById } = CarsSlice.actions
+export const { setCarFilter, resetCarFilter, setCarCurrentPage, resetCarById, resetCarError } =
+    CarsSlice.actions
 export default CarsSlice.reducer

@@ -114,6 +114,10 @@ const OrderSLice = createSlice({
         resetOrders(state) {
             return { ...state, ...initialState }
         },
+        resetOrderError(state) {
+            state.orderErrors.isError = false
+            state.orderErrors.errorMessage = ''
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getOrders.pending, (state) => {
@@ -210,5 +214,6 @@ const OrderSLice = createSlice({
         })
     },
 })
-export const { setOrderCurrentPage, setOrderFilter, resetOrderFilter } = OrderSLice.actions
+export const { setOrderCurrentPage, setOrderFilter, resetOrderFilter, resetOrderError } =
+    OrderSLice.actions
 export default OrderSLice.reducer

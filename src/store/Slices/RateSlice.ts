@@ -54,6 +54,10 @@ const RateSlice = createSlice({
         resetRates(state) {
             return { ...state, ...initialState }
         },
+        resetRateError(state) {
+            state.ratesErrors.isError = false
+            state.ratesErrors.errorMessage = ''
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getAllRates.pending, (state) => {
@@ -91,5 +95,5 @@ const RateSlice = createSlice({
         })
     },
 })
-
+export const { resetRateError } = RateSlice.actions
 export default RateSlice.reducer
