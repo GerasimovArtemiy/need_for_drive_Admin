@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/need_for_drive_Admin/static/css/main.3687ea92.css",
-    "main.js": "/need_for_drive_Admin/static/js/main.5a3740cf.js",
+    "main.js": "/need_for_drive_Admin/static/js/main.5a17ada3.js",
     "static/media/helvetica_regular.svg": "/need_for_drive_Admin/static/media/helvetica_regular.38c583c0067f1e31cea2.svg",
     "static/media/helvetica_bold.svg": "/need_for_drive_Admin/static/media/helvetica_bold.5574092a2d54e72749af.svg",
     "static/media/helvetica_regular.eot": "/need_for_drive_Admin/static/media/helvetica_regular.41c63ce83e3cd0799024.eot",
@@ -20,10 +20,10 @@
     "static/media/tick_mark.svg": "/need_for_drive_Admin/static/media/tick_mark.387cc07cf0ea1a3e5316808323a5b9c0.svg",
     "static/media/checkbox-icon.svg": "/need_for_drive_Admin/static/media/checkbox-icon.599a4157a9af0498854e.svg",
     "main.3687ea92.css.map": "/need_for_drive_Admin/static/css/main.3687ea92.css.map",
-    "main.5a3740cf.js.map": "/need_for_drive_Admin/static/js/main.5a3740cf.js.map"
+    "main.5a17ada3.js.map": "/need_for_drive_Admin/static/js/main.5a17ada3.js.map"
   },
   "entrypoints": [
     "static/css/main.3687ea92.css",
-    "static/js/main.5a3740cf.js"
+    "static/js/main.5a17ada3.js"
   ]
 }
