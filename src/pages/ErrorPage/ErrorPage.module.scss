@@ -11,14 +11,25 @@
         align-items: center;
         justify-content: center;
         background-color: #f5f6f8;
+        text-align: center;
+        padding: 10px;
     }
     &_code {
         font-size: 75px;
         color: #cacedb;
         font-family: $bold;
         letter-spacing: -2px;
+        @media screen and (max-width: 1200px) {
+            font-size: 63px;
+        }
+        @media screen and (max-width: 800px) {
+            font-size: 54px;
+        }
         @media screen and (max-width: 550px) {
             font-size: 44px;
+        }
+        @media screen and (max-width: 400px) {
+            font-size: 30px;
         }
     }
     & h3 {
@@ -26,10 +37,18 @@
         font-size: 50px;
         margin: 13px 0 0px;
         letter-spacing: -2px;
-        text-align: center;
+        @media screen and (max-width: 1200px) {
+            font-size: 42px;
+        }
+        @media screen and (max-width: 800px) {
+            font-size: 35px;
+        }
         @media screen and (max-width: 550px) {
             font-size: 29px;
             margin: 8px 0 0;
+        }
+        @media screen and (max-width: 400px) {
+            font-size: 20px;
         }
     }
     & p {
@@ -37,6 +56,12 @@
         font-size: 19px;
         color: #818ea3;
         margin: 15px 0 34px;
+        @media screen and (max-width: 1200px) {
+            font-size: 18px;
+        }
+        @media screen and (max-width: 800px) {
+            font-size: 16px;
+        }
         @media screen and (max-width: 550px) {
             font-size: 11px;
             margin: 12px 0 15px;
