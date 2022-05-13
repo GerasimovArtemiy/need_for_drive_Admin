@@ -1,6 +1,6 @@
 import React from 'react'
 import { ICarFormValues, CarInputsValues } from '../../../../hooks/useCarFormInputs'
-import { UseFormRegister, FieldErrors } from 'react-hook-form'
+import { UseFormRegister } from 'react-hook-form'
 import cl from './CarEditSection.module.scss'
 
 interface ICarInputProps {
@@ -9,23 +9,15 @@ interface ICarInputProps {
     label: string
     type: string
     register: UseFormRegister<ICarFormValues>
-    errors: FieldErrors
+    error: any
     isValid: boolean
     placeholder: string
     defaultValue: string
 }
 
 const CarInput: React.FC<ICarInputProps> = (props) => {
-    const { name, value, label, type, register, errors, placeholder, defaultValue } = props
+    const { name, value, label, type, register, error, placeholder, defaultValue } = props
     const { ref, ...inputProps } = register(name)
-    const showError = () => {
-        if (name === 'name' && errors.name) return errors.name.message
-        if (name === 'number' && errors.number) return errors.number.message
-        if (name === 'tank' && errors.tank) return errors.tank.message
-        if (name === 'priceMin' && errors.priceMin) return errors.priceMin.message
-        if (name === 'priceMax' && errors.priceMax) return errors.priceMax.message
-        if (name === 'description' && errors.description) return errors.description.message
-    }
 
     return (
         <div className={cl.input_item}>
@@ -40,7 +32,7 @@ const CarInput: React.FC<ICarInputProps> = (props) => {
                 placeholder={placeholder}
                 defaultValue={defaultValue}
             />
-            <span className={cl.error}>{showError()}</span>
+            <span className={cl.error}>{error?.message}</span>
         </div>
     )
 }

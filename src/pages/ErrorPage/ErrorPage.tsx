@@ -1,23 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../hooks/redux-hooks'
 import Button from '../../components/UI/Buttons/Button'
 import cl from './ErrorPage.module.scss'
 
-interface IErrorPageProps {
-    title: string
-}
-
-const ErrorPage: React.FC<IErrorPageProps> = ({ title }) => {
+const ErrorPage: React.FC = () => {
     const navigate = useNavigate()
+    const { error } = useAppSelector((state) => state.error)
+
+    useEffect(() => {
+        if (!error.isError)
+            setTimeout(() => {
+                navigate(-1)
+            }, 4000)
+    }, [error])
+
     return (
         <div className={cl.error_container}>
             <div className={cl.error}>
-                <span className={cl.error_code}>500</span>
-                <h3>{title === '' ? 'Что то пошло не так' : title}</h3>
+                <span className={cl.error_code}>{error.isError ? error?.name : 'o_0'}</span>
+                <h3>{error.isError ? error?.message : 'Хм... Что то пошло не так.'}</h3>
                 <p>
-                    {title === ''
-                        ? 'Такой страницы не существует, вернитесь назад'
-                        : 'Попробуйте перезагрузить страницу'}
+                    {error.isError
+                        ? 'Попробуйте перезагрузить страницу'
+                        : 'Стоп! Такой страницы не существует. Включаем задний ход... :)'}
                 </p>
                 <Button
                     title="Назад"

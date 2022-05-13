@@ -95,23 +95,23 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
             setColors(newColors)
         }
     }
-
+    // console.log(errors)
     return (
         <section className={cl.carForm}>
             <div className={cl.carForm_container}>
                 <form className={cl.carForm_form} onSubmit={handleSubmit(onSubmit)}>
                     <h3>{carId ? 'Изменить автомобиль' : 'Добавить автомобиль'}</h3>
                     <div className={cl.input_container}>
-                        {carInputs.map((input) => (
+                        {carInputs.map(({ defaultValue, name, placeholder, label, type }) => (
                             <CarInput
-                                defaultValue={input.defaultValue}
-                                key={input.name}
-                                name={input.name}
-                                placeholder={input.placeholder}
-                                label={input.label}
-                                type={input.type}
+                                defaultValue={defaultValue}
+                                key={name}
+                                name={name}
+                                placeholder={placeholder}
+                                label={label}
+                                type={type}
                                 register={register}
-                                errors={errors}
+                                error={errors[name] ? errors[name] : null}
                                 isValid={isValid}
                             />
                         ))}

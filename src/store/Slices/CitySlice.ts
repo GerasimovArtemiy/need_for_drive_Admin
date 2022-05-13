@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CityAndRateService from '../../API/cityAndRateService'
 import { apiPath } from '../../API/apiPath'
 import { ICity, ICitiesResponse, IPoint } from '../../components/Interfaces/CityInterface'
+import { getError } from './ErrorSlice'
 
 interface ICitiesState {
     cities: {
@@ -11,10 +12,6 @@ interface ICitiesState {
     pointsById: {
         data: IPoint[]
         status: null | string
-    }
-    cityErrors: {
-        isError: boolean
-        errorMessage: string
     }
 }
 
@@ -27,27 +24,62 @@ const initialState: ICitiesState = {
         data: [],
         status: null,
     },
-    cityErrors: {
-        isError: false,
-        errorMessage: '',
-    },
 }
 
-export const getCities = createAsyncThunk('city/getCities', async () => {
-    const response = await CityAndRateService.getEntities(apiPath.cities)
-    return response.data
+export const getCities = createAsyncThunk('city/getCities', async (_, { dispatch }) => {
+    try {
+        const response = await CityAndRateService.getEntities(apiPath.cities)
+        return response.data
+    } catch (err: any) {
+        dispatch(
+            getError({ name: `${err.name}: Загрузка городов`, message: err.message, isError: true })
+        )
+    }
 })
-export const postCity = createAsyncThunk('rate/addCity', async (city: string) => {
-    await CityAndRateService.postCity(city)
+export const postCity = createAsyncThunk('rate/addCity', async (city: string, { dispatch }) => {
+    try {
+        await CityAndRateService.postCity(city)
+    } catch (err: any) {
+        dispatch(
+            getError({
+                name: `${err.name}: Добавление города`,
+                message: err.message,
+                isError: true,
+            })
+        )
+    }
 })
-export const deleteCityById = createAsyncThunk('rate/deleteCityById', async (cityId: string) => {
-    await CityAndRateService.deleteEntity(apiPath.cities, cityId)
-})
+export const deleteCityById = createAsyncThunk(
+    'rate/deleteCityById',
+    async (cityId: string, { dispatch }) => {
+        try {
+            await CityAndRateService.deleteEntity(apiPath.cities, cityId)
+        } catch (err: any) {
+            dispatch(
+                getError({
+                    name: `${err.name}: Удаление города`,
+                    message: err.message,
+                    isError: true,
+                })
+            )
+        }
+    }
+)
 export const getPointsById = createAsyncThunk(
     'rate/getPointsById',
-    async (cityId: string | undefined) => {
-        const response = await CityAndRateService.getPointsById(cityId)
-        return response.data.data
+    async (cityId: string | undefined, { dispatch }) => {
+        try {
+            const response = await CityAndRateService.getPointsById(cityId)
+            return response.data.data
+        } catch (err: any) {
+            dispatch(
+                getError({
+                    name: `${err.name}: Загрузка адресов`,
+                    message: err.message,
+                    isError: true,
+                })
+            )
+        }
     }
 )
 
@@ -58,16 +90,10 @@ const CitySlice = createSlice({
         resetCities(state) {
             return { ...state, ...initialState }
         },
-        resetCityError(state) {
-            state.cityErrors.isError = false
-            state.cityErrors.errorMessage = ''
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCities.pending, (state) => {
             state.cities.status = 'loading'
-            state.cityErrors.isError = false
-            state.cityErrors = initialState.cityErrors
         })
         builder.addCase(getCities.fulfilled, (state, action: PayloadAction<ICitiesResponse>) => {
             if (action.payload) {
@@ -75,22 +101,16 @@ const CitySlice = createSlice({
                 state.cities.status = 'resolved'
             } else {
                 state.cities.status = 'rejected'
-                state.cityErrors.isError = true
-                state.cityErrors.errorMessage = 'Не удалось загрузить города'
             }
         })
         builder.addCase(getCities.rejected, (state) => {
             state.cities.status = 'rejected'
-            state.cityErrors.isError = true
-            state.cityErrors.errorMessage = 'Не удалось загрузить города'
         })
 
         // =======================================================
 
         builder.addCase(getPointsById.pending, (state) => {
             state.pointsById.status = 'loading'
-            state.cityErrors.isError = false
-            state.cityErrors = initialState.cityErrors
         })
         builder.addCase(getPointsById.fulfilled, (state, action: PayloadAction<IPoint[]>) => {
             if (action.payload) {
@@ -98,17 +118,12 @@ const CitySlice = createSlice({
                 state.pointsById.status = 'resolved'
             } else {
                 state.pointsById.status = 'rejected'
-                state.cityErrors.isError = true
-                state.cityErrors.errorMessage = 'Не удалось загрузить aдреса'
             }
         })
         builder.addCase(getPointsById.rejected, (state) => {
             state.cities.status = 'rejected'
-            state.cityErrors.isError = true
-            state.cityErrors.errorMessage = 'Не удалось загрузить aдреса'
         })
     },
 })
 
-export const { resetCityError } = CitySlice.actions
 export default CitySlice.reducer

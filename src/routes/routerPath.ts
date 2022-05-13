@@ -9,4 +9,5 @@ export enum routerPath {
     carAdd = '/need_for_drive_Admin/admin/addCar',
     cityList = '/need_for_drive_Admin/admin/cities',
     rateList = '/need_for_drive_Admin/admin/rates',
+    error = '/need_for_drive_Admin/admin/error',
 }
