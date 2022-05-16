@@ -125,11 +125,7 @@ const CarEditSection: React.FC<ICarEditSectionProps> = ({ categories, car, carIn
                                           value: car.categoryId?.name,
                                           label: car.categoryId?.name,
                                       }
-                                    : {
-                                          id: '0',
-                                          value: 'Не известно',
-                                          label: 'Не известно',
-                                      }
+                                    : undefined
                             }
                             render={({ field }) => (
                                 <CarCategoryInput
