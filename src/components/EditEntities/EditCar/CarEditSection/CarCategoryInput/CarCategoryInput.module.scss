@@ -1,0 +1,62 @@
+@import '../../../../../styles/variables.scss';
+
+.input {
+    width: 100%;
+    color: $color-black;
+    outline-color: $color-blue;
+    align-self: center;
+    font-size: 12px;
+    &_label {
+        font-size: 13px;
+        margin-bottom: 8px;
+        color: $color-dark-blue;
+        display: block;
+    }
+    &_container {
+        box-sizing: border-box;
+    }
+    &_error {
+        font-size: 13px;
+        color: red;
+        margin: 5px 0 0 10px;
+    }
+    [class*='-indicatorSeparator'] {
+        display: none;
+    }
+    [class*='-control'] {
+        height: 30px !important;
+        box-sizing: border-box;
+        outline: none;
+        box-shadow: none;
+        cursor: pointer;
+        &:hover {
+            border-color: gray;
+        }
+    }
+    [class*='-option'] {
+        font-size: 13px;
+        color: gray;
+        background-color: white;
+        padding: 8px;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-blue;
+        }
+        &:active {
+            background-color: white;
+            opacity: 1;
+        }
+    }
+    [class*='-Input'] {
+        margin: 0;
+        padding: 0;
+    }
+    [class*='-IndicatorsContainer'] {
+        display: flex;
+        align-items: center;
+    }
+    [class*='-indicatorContainer'] {
+        padding: 8px;
+    }
+}

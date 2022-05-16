@@ -52,7 +52,7 @@ const CarItem: React.FC<ICarItemProps> = ({ car }) => {
                     </li>
                     <li className={cl.descr_item}>
                         <span className={cl.descr_item_title}>Категория: </span>
-                        <span className={cl.descr_item_subtitle}>{car.categoryId.name} </span>
+                        <span className={cl.descr_item_subtitle}>{car.categoryId?.name} </span>
                     </li>
                 </ul>
                 <ul className={cl.descr_container}>
@@ -63,7 +63,7 @@ const CarItem: React.FC<ICarItemProps> = ({ car }) => {
                         </span>
                     </li>
                 </ul>
-                <CarItemButtons />
+                <CarItemButtons carId={car.id} />
             </div>
         </div>
     )

@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
             </div>
             <nav className={cl.navbar}>
                 {navbarItems.map(({ id, title, path, img }) => (
-                    <NavLink key={id} className={handlerClassName(path)} to={path}>
+                    <NavLink title={title} key={id} className={handlerClassName(path)} to={path}>
                         <div className={cl.link_img}>{img}</div>
                         <p className={cl.link}>{title}</p>
                     </NavLink>

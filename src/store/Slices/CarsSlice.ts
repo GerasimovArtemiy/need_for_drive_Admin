@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import CarService from '../../API/carService'
-import { ICar, ICarsResponse, ICategory } from '../../components/Interfaces/CarInterface'
+import { ICar, ICarsResponse, ICategory, INewCar } from '../../components/Interfaces/CarInterface'
 import { ICarParamsInterface } from '../../components/Interfaces/ParamsInterface'
+import { getError } from './ErrorSlice'
 
 interface ICarState {
     category: {
@@ -15,6 +16,14 @@ interface ICarState {
     carsByParams: {
         items: ICarsResponse
         status: string | null
+    }
+    carById: {
+        selectCar: ICar
+        status: null | string
+    }
+    putCar: {
+        status: string | null
+        data: INewCar
     }
     filter: {
         params: ICarParamsInterface
@@ -39,27 +48,120 @@ const initialState: ICarState = {
         },
         status: null,
     },
+    carById: {
+        selectCar: {} as ICar,
+        status: null,
+    },
+    putCar: {
+        status: null,
+        data: {} as INewCar,
+    },
     filter: {
         params: {} as ICarParamsInterface,
         currentPage: 1,
     },
 }
 
-export const getCategory = createAsyncThunk('cars/getCategory', async () => {
-    const response = await CarService.getCategories()
-    return response.data.data
+export const getCategory = createAsyncThunk('cars/getCategory', async (_, { dispatch }) => {
+    try {
+        const response = await CarService.getCategories()
+        return response.data.data
+    } catch (err: any) {
+        dispatch(
+            getError({
+                name: `${err.name}: Загрузка категорий`,
+                message: err.message,
+                isError: true,
+            })
+        )
+    }
 })
-export const getAllCars = createAsyncThunk('cars/getAllCars', async () => {
-    const response = await CarService.getCars()
-    return response.data.data
+export const getAllCars = createAsyncThunk('cars/getAllCars', async (_, { dispatch }) => {
+    try {
+        const response = await CarService.getCars()
+        return response.data.data
+    } catch (err: any) {
+        dispatch(
+            getError({
+                name: `${err.name}: Загрузка автомобилей`,
+                message: err.message,
+                isError: true,
+            })
+        )
+    }
 })
 export const getCarsByParams = createAsyncThunk(
     'cars/getCarsByParams',
-    async (params: ICarParamsInterface) => {
-        const response = await CarService.getCarsByParams(params)
-        return response.data
+    async (params: ICarParamsInterface, { dispatch }) => {
+        try {
+            const response = await CarService.getCarsByParams(params)
+            return response.data
+        } catch (err: any) {
+            dispatch(
+                getError({
+                    name: `${err.name}: Загрузка автомобилей`,
+                    message: err.message,
+                    isError: true,
+                })
+            )
+        }
     }
 )
+export const getCarById = createAsyncThunk(
+    'cars/getCarById',
+    async (carId: string | undefined, { dispatch }) => {
+        try {
+            const response = await CarService.getCarById(carId)
+            return response.data.data
+        } catch (err: any) {
+            dispatch(
+                getError({
+                    name: `${err.name}: Загрузка автомобиля`,
+                    message: err.message,
+                    isError: true,
+                })
+            )
+        }
+    }
+)
+export const deleteCar = createAsyncThunk('rate/deleteCar', async (carId: string, { dispatch }) => {
+    try {
+        await CarService.deleteCar(carId)
+    } catch (err: any) {
+        dispatch(
+            getError({
+                name: `${err.name}: Удаление автомобиля`,
+                message: err.message,
+                isError: true,
+            })
+        )
+    }
+})
+export const putCar = createAsyncThunk(
+    'cars/putCar',
+    async (newCar: { carId: string; car: INewCar }, { dispatch }) => {
+        try {
+            const response = await CarService.putCar(newCar)
+            return response.data.data
+        } catch (err: any) {
+            dispatch(
+                getError({
+                    name: `${err.name}: Изменение автомобиля`,
+                    message: err.message,
+                    isError: true,
+                })
+            )
+        }
+    }
+)
+export const postCar = createAsyncThunk('cars/postCar', async (newCar: INewCar, { dispatch }) => {
+    try {
+        const response = await CarService.postCar(newCar)
+        return response.data.data
+    } catch (err: any) {
+        dispatch(getError({ name: err.name, message: err.message, isError: true }))
+    }
+})
 
 const CarsSlice = createSlice({
     name: 'cars',
@@ -74,8 +176,8 @@ const CarsSlice = createSlice({
         setCarCurrentPage(state, action: PayloadAction<number>) {
             state.filter.currentPage = action.payload
         },
-        resetCars(state) {
-            return { ...state, ...initialState }
+        resetCarById(state) {
+            state.carById = initialState.carById
         },
     },
     extraReducers: (builder) => {
@@ -130,7 +232,41 @@ const CarsSlice = createSlice({
         builder.addCase(getCarsByParams.rejected, (state) => {
             state.carsByParams.status = 'rejected'
         })
+
+        // =======================================================
+
+        builder.addCase(getCarById.pending, (state) => {
+            state.carById.status = 'loading'
+        })
+        builder.addCase(getCarById.fulfilled, (state, action: PayloadAction<ICar>) => {
+            if (action.payload) {
+                state.carById.selectCar = action.payload
+                state.carById.status = 'resolved'
+            } else {
+                state.carById.status = 'rejected'
+            }
+        })
+        builder.addCase(getCarById.rejected, (state) => {
+            state.carById.status = 'rejected'
+        })
+
+        // =======================================================
+
+        builder.addCase(putCar.pending, (state) => {
+            state.putCar.status = 'loading'
+        })
+        builder.addCase(putCar.fulfilled, (state, action: PayloadAction<INewCar>) => {
+            if (action.payload) {
+                state.putCar.data = action.payload
+                state.putCar.status = 'resolved'
+            } else {
+                state.putCar.status = 'rejected'
+            }
+        })
+        builder.addCase(putCar.rejected, (state) => {
+            state.putCar.status = 'rejected'
+        })
     },
 })
-export const { setCarFilter, resetCarFilter, setCarCurrentPage } = CarsSlice.actions
+export const { setCarFilter, resetCarFilter, setCarCurrentPage, resetCarById } = CarsSlice.actions
 export default CarsSlice.reducer

@@ -27,9 +27,21 @@ export interface IOrder {
     isRightWheel: boolean
     id: string
 }
-
-export interface IOrdersResponse {
+export interface IOrderResponse {
+    status: number
+    data: IOrdersItems
+}
+export interface IOrdersItems {
     data: IOrder[]
     count: number
-    fields?: any
+}
+export interface INewOrder {
+    orderStatusId: { id: string }
+    cityId: { id: string }
+    pointId: { id: string }
+    carId: { id: string }
+    color: string
+    isFullTank: boolean
+    isNeedChildChair: boolean
+    isRightWheel: boolean
 }

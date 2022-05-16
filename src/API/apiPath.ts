@@ -8,4 +8,5 @@ export enum apiPath {
     cities = 'db/city',
     point = '/db/point',
     rate = '/db/rate',
+    rateType = '/db/rateType',
 }

@@ -19,8 +19,12 @@ const Authorization: React.FC = () => {
 
     useEffect(() => {
         const takenToken = localStorage.getItem('accessToken')
+        if (takenToken) navigate(routerPath.adminPanel)
+    }, [navigate])
+    useEffect(() => {
+        const takenToken = localStorage.getItem('accessToken')
         if (status === 'resolved' && takenToken) navigate(routerPath.adminPanel)
-    }, [status, navigate])
+    }, [navigate, status])
 
     const {
         register,
